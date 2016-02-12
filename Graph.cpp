@@ -81,7 +81,6 @@ bool Graph::Isconnected()
 
     bool* close = new bool[size];
     bool* open = new bool[size];
-    bool* aa = nullptr;
 
     for (int i = 0; i < size; ++i)
         open[i] = close[i] = false;
