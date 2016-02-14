@@ -9,13 +9,19 @@
 	<iostream>
 	"Graph.h"
 
-1455403758 source:c:\users\gustavo\graph\cpp_learning\graph.cpp
+1455486093 source:c:\users\gustavo\graph\cpp_learning\graph.cpp
 	"Graph.h"
+	<cstdio>
 	<iostream>
+	<sstream>
+	<vector>
+	<stack>
+	<assert.h>
+	<algorithm>
 
-1455419831 c:\users\gustavo\graph\cpp_learning\graph.h
+1455465442 c:\users\gustavo\graph\cpp_learning\graph.h
 
-1455319785 source:c:\users\gustavo\graph\cpp_learning\main.cpp
+1455486383 source:c:\users\gustavo\graph\cpp_learning\main.cpp
 	<iostream>
 	"Graph.h"
 

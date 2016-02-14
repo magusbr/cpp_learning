@@ -26,7 +26,21 @@ class Graph
         //move constructor
 
     protected:
+        typedef struct node_distance_t
+        {
+            unsigned int from;
+            unsigned int to;
+            int distance;
+            bool visited;
+        } node_distance_t;
 
+        struct compare_node_distance_t
+        {
+            inline bool operator() (const node_distance_t& struct1, const node_distance_t& struct2)
+            {
+                return (struct1.distance < struct2.distance);
+            }
+        };
     private:
         unsigned int m_nodes;
         unsigned int m_edges;
