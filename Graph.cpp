@@ -1,6 +1,8 @@
 #include "Graph.h"
 
 #include <iostream>
+#include <vector>
+#include <assert.h>
 using namespace std;
 
 #define DEBUG 1
@@ -123,4 +125,60 @@ bool Graph::Isconnected()
     delete [] open;
     delete [] close;
     return false;
+}
+
+/*
+closed nodes - nodes with known shortest path
+open set - what's reachable - select open node with least cost
+
+
+origin, destiny
+closed set, open set
+shortest path
+
+- initial
+closed:
+origin = 0
+open
+whats reachable by origin with distance
+
+- steps
+pick least cost in open set and add node to closed set
+add new reachables to open set updating values if less than current (except whats already in closed set)
+if no advance, pick another least cost
+
+- end
+destiny reaches the closed set
+*/
+int Graph::DjikstraShortestPath(unsigned int fro, unsigned int to)
+{
+    typedef struct node_distance_t
+    {
+        unsigned int node;
+        int distance;
+    } node_distance_t;
+
+    vector<node_distance_t> close;
+    vector<node_distance_t> open;
+    vector<node_distance_t> shortest_path;
+
+    // make sure nodes are valid
+    assert(fro < m_nodes && fro >= 0);
+    assert(to < m_nodes && to >= 0);
+
+    // initialize closed set with origin and its distance: 0
+    close.push_back({fro, 0});
+
+    // initialize open set with reachable nodes from origin
+    for (unsigned int i = 0; i < m_nodes; ++i)
+        if (m_graph[fro][i] > 0)
+            open.push_back({i, m_graph[fro][i]});
+
+    // loop until open set is overrun or destiny reaches closed set
+    while (true)
+    {
+
+    }
+
+    return -1;
 }

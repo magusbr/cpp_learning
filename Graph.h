@@ -16,6 +16,7 @@ class Graph
         int** Getgraph() { return m_graph; }
         void Setgraph(int** val) { m_graph = val; }
         bool Isconnected();
+        int DjikstraShortestPath(unsigned int fro, unsigned int to);
         // TODO
         // implement copy constructor, operator
         // implement move constructor, operator
