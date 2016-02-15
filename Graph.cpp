@@ -158,6 +158,7 @@ destiny reaches the closed set
 int Graph::DjikstraShortestPath(unsigned int fro, unsigned int to)
 {
     vector<node_distance_t> open;
+    //priority_queue type could be used maybe
 
     // make sure nodes are valid
     assert(fro < m_nodes && fro >= 0);
@@ -219,7 +220,8 @@ int Graph::DjikstraShortestPath(unsigned int fro, unsigned int to)
             {
                 // if already on open set, update distance
                 already_on_open = false;
-                for (vector<node_distance_t>::iterator it2=open.begin(); it2!=open.end(); ++it2)
+                // automatically detect iterator type
+                for (auto it2=open.begin(); it2!=open.end(); ++it2)
                 {
                     // if already on open set, just update
                     // check from is also necessary because open set may contain (0->1) or (1->0)
