@@ -20,6 +20,9 @@ class Graph
         // TODO
         // implement copy constructor, operator
         // implement move constructor, operator
+        // test "explicit" keyword
+        // conversion to basic data type overloading ()
+        // friend functions
 
         //C++11
         //nullptr
