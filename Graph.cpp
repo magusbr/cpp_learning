@@ -181,7 +181,7 @@ int Graph::DjikstraShortestPath(unsigned int fro, unsigned int to)
         #ifdef DEBUG
         cout << "[Graph] ordered open: ";
         for (vector<node_distance_t>::iterator it=open.begin(); it!=open.end(); ++it)
-            if(!(*it).visited) cout << (*it).to << " ";
+            if(!(*it).visited) cout << (*it).from << "->" << (*it).to << "(" << (*it).distance << ") ";
         cout << endl;
         #endif // DEBUG
 
@@ -223,18 +223,24 @@ int Graph::DjikstraShortestPath(unsigned int fro, unsigned int to)
                 // automatically detect iterator type
                 for (auto it2=open.begin(); it2!=open.end(); ++it2)
                 {
+                    // ignore inverted path (0->1) or (1->0) because both were already visited
+                    if ((((*it2).from == i) && ((*it2).to == current_node)))
+                    {
+                        already_on_open = true;
+                        break;
+                    }
+
                     // if already on open set, just update
-                    // check from is also necessary because open set may contain (0->1) or (1->0)
-                    if (((*it2).to == i) || (((*it2).from == i) && ((*it2).to == current_node)))
+                    if ((*it2).to == i)
                     {
                         already_on_open = true;
 
                         if (distance + m_graph[current_node][i] < (*it2).distance)
                         {
                             #ifdef DEBUG
-                            cout << "i" << i << " current_node " << current_node << endl;
+                            cout << "i " << i << " current_node " << current_node << endl;
                             cout << "from " << (*it2).from << " to " << (*it2).to << endl;
-                            cout << "distance " << distance << " (*it2).distance " << (*it2).distance << endl;
+                            cout << "new distance " << distance + m_graph[current_node][i] << " curr (*it2).distance " << (*it2).distance << endl;
                             #endif // DEBUG
                             (*it2).distance = distance + m_graph[current_node][i];
                             (*it2).from = current_node;

@@ -22,10 +22,12 @@ int main()
     g.Addedge(4, 0, 1);
     g.Addedge(3, 0, 2);
     // original g.Addedge(7, 0, 4);
-    g.Addedge(8, 0, 4);
+    g.Addedge(7, 0, 4);
+    //g.Addedge(8, 0, 4);
     g.Addedge(1, 1, 3);
     // original g.Addedge(4, 2, 4);
-    g.Addedge(5, 2, 4);
+    g.Addedge(4, 2, 4);
+    //g.Addedge(5, 2, 4);
     g.Addedge(3, 3, 4);
     g.Addedge(1, 3, 5);
     g.Addedge(1, 4, 5);
