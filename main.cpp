@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void IraPohlGraph(Graph& g)
+void GraphIraPohl(Graph& g)
 {
     g.Addedge(4, 0, 1);
     g.Addedge(3, 0, 2);
@@ -101,7 +101,9 @@ int main()
     g.DjikstraShortestPath(0, 3);
     */
     Graph g(9);
+    //GraphIraPohl(g);
     //GraphEasiest(g);
+    //GraphHarder(g);
     GraphMST2ndClass(g);
 
     //g.DjikstraShortestPath(0, 8);
