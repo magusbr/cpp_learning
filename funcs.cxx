@@ -46,3 +46,15 @@ int func(int argc, char** argv)
 
     return *ptr;
 }
+
+
+void cpp11_feature_for()
+{
+    double data[50] = {0};
+
+    // will sum +2 on each data index (each element)
+    for (auto& element : data)
+    {
+        element += 2;
+    }
+}

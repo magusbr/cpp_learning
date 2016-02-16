@@ -104,10 +104,10 @@ int main()
     //GraphIraPohl(g);
     //GraphEasiest(g);
     //GraphHarder(g);
-    GraphMST2ndClass(g);
+    //GraphMST2ndClass(g);
 
     //g.DjikstraShortestPath(0, 8);
-    g.JarnikPrimMST();
+    //g.JarnikPrimMST();
 
     return 0;
 }
