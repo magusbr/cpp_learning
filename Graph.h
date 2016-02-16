@@ -15,8 +15,10 @@ class Graph
         unsigned int Getedges() { return m_edges; }
         int** Getgraph() { return m_graph; }
         void Setgraph(int** val) { m_graph = val; }
+        void Setnodes(int val);
         bool Isconnected();
         int DjikstraShortestPath(unsigned int fro, unsigned int to);
+        int JarnikPrimMST();
         // TODO
         // implement copy constructor, operator
         // implement move constructor, operator

@@ -80,6 +80,23 @@ int Graph::Addedge(unsigned int val, unsigned int node1, unsigned int node2)
     return 0;
 }
 
+void Graph::Setnodes(int val)
+{
+    m_nodes = val;
+    m_graph = new int*[val];
+    for (unsigned int i = 0; i < val; ++i)
+    {
+        m_graph[i] = new int[val];
+
+        for (unsigned int j = 0; j < val; ++j)
+            m_graph[i][j] = 0;
+    }
+
+    #ifdef DEBUG
+        cout << "[Graph] set with size " << val << endl;
+    #endif
+}
+
 bool Graph::Isconnected()
 {
     int old_size = 0, c_size = 0;
@@ -274,6 +291,114 @@ int Graph::DjikstraShortestPath(unsigned int fro, unsigned int to)
         }
     }
     cout << fro << endl;
+
+    return distance;
+}
+
+
+
+
+
+
+int Graph::JarnikPrimMST()
+{
+    vector<node_distance_t> open;
+    //priority_queue type could be used maybe
+
+    // initialize open set with reachable nodes from origin
+    for (unsigned int i = 0; i < m_nodes; ++i)
+        if (m_graph[0][i] > 0)
+            open.push_back({0, i, m_graph[0][i], false});
+
+    // loop until open set is overrun or destiny reaches closed set
+    unsigned int current_node = 0;
+    int distance = 0;
+    bool any_visit = false;
+    bool already_on_open = false;
+    while (true)
+    {
+        // sort open set
+        sort(open.begin(), open.end(), compare_node_distance_t());
+        #ifdef DEBUG
+        cout << "[Graph] ordered open: ";
+        for (vector<node_distance_t>::iterator it=open.begin(); it!=open.end(); ++it)
+            if(!(*it).visited) cout << (*it).from << "->" << (*it).to << "(" << (*it).distance << ") ";
+        cout << endl;
+        #endif // DEBUG
+
+
+        // get the non-visited least distance on open set
+        any_visit = false;
+        vector<node_distance_t>::iterator visit;
+        for (vector<node_distance_t>::iterator it=open.begin(); it!=open.end(); ++it)
+        {
+            if ((*it).visited) continue;
+            any_visit = true;
+
+            visit = it;
+            break;
+        }
+
+        if (!any_visit)
+            break;
+
+        // set visited
+        (*visit).visited = true;
+        current_node = (*visit).to;
+        distance = (*visit).distance;
+        #ifdef DEBUG
+        cout << "[Graph] current " << current_node << " distance " << (*visit).distance << endl;
+        #endif // DEBUG
+
+        // add adjacent nodes to open set
+        // if already there, just update distance
+        for (unsigned int i = 0; i < m_nodes; ++i)
+        {
+            if (m_graph[current_node][i] > 0)
+            {
+                // if already on open set, update distance
+                already_on_open = false;
+                // automatically detect iterator type
+                for (auto it2=open.begin(); it2!=open.end(); ++it2)
+                {
+                    // ignore inverted path (0->1) or (1->0) because both were already visited
+                    if ((((*it2).from == i) && ((*it2).to == current_node)))
+                    {
+                        already_on_open = true;
+                        break;
+                    }
+
+                    // if already on open set, just update
+                    if ((*it2).to == i)
+                    {
+                        already_on_open = true;
+
+                        if (distance + m_graph[current_node][i] < (*it2).distance)
+                        {
+                            #ifdef DEBUG
+                            cout << "i " << i << " current_node " << current_node << endl;
+                            cout << "from " << (*it2).from << " to " << (*it2).to << endl;
+                            cout << "new distance " << distance + m_graph[current_node][i] << " curr (*it2).distance " << (*it2).distance << endl;
+                            #endif // DEBUG
+                            (*it2).distance = distance + m_graph[current_node][i];
+                            (*it2).from = current_node;
+                            break;
+                        }
+                    }
+                }
+
+                // if not found, add it
+                if (!already_on_open)
+                {
+                    open.push_back({current_node, i, m_graph[current_node][i]+distance, false});
+                }
+            }
+        }
+    }
+
+    for (auto it=open.begin(); it!=open.end(); ++it)
+        cout << (*it).from << "->" << (*it).to << "(" << (*it).distance << ") ";
+    cout << endl;
 
     return distance;
 }
