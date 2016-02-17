@@ -35,6 +35,7 @@
 		<Unit filename="Graph.cpp" />
 		<Unit filename="Graph.h" />
 		<Unit filename="funcs.cxx" />
+		<Unit filename="homework1.cpp" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
