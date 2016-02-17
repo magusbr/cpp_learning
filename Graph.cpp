@@ -84,11 +84,11 @@ void Graph::Setnodes(int val)
 {
     m_nodes = val;
     m_graph = new int*[val];
-    for (unsigned int i = 0; i < val; ++i)
+    for (int i = 0; i < val; ++i)
     {
         m_graph[i] = new int[val];
 
-        for (unsigned int j = 0; j < val; ++j)
+        for (int j = 0; j < val; ++j)
             m_graph[i][j] = 0;
     }
 
@@ -223,7 +223,8 @@ int Graph::DjikstraShortestPath(unsigned int fro, unsigned int to)
         current_node = (*visit).to;
         distance = (*visit).distance;
         #ifdef DEBUG
-        cout << "[Graph] current " << current_node << " distance " << (*visit).distance << endl;
+        //cout << "[Graph] current " << current_node << " distance " << (*visit).distance << endl;
+        cout << "[Graph] " << (*visit).from << "->" << (*visit).to << "(" << (*visit).distance << ")" << endl;
         #endif // DEBUG
 
         if (current_node == to)
@@ -252,13 +253,15 @@ int Graph::DjikstraShortestPath(unsigned int fro, unsigned int to)
                     {
                         already_on_open = true;
 
+                        // do not update visited distance
+                        if ((*it2).visited) break;
+
                         if (distance + m_graph[current_node][i] < (*it2).distance)
                         {
-                            #ifdef DEBUG
-                            cout << "i " << i << " current_node " << current_node << endl;
-                            cout << "from " << (*it2).from << " to " << (*it2).to << endl;
-                            cout << "new distance " << distance + m_graph[current_node][i] << " curr (*it2).distance " << (*it2).distance << endl;
-                            #endif // DEBUG
+                            #ifdef DEBUG_ITER
+                            cout << "[Graph] Update " << (*it2).from << "->" << (*it2).to << "(" << (*it2).distance << ") ";
+                            cout << "to " << current_node << "->" << i << "(" << distance+m_graph[current_node][i] << ")" << endl;
+                            #endif // DEBUG_ITER
                             (*it2).distance = distance + m_graph[current_node][i];
                             (*it2).from = current_node;
                             break;
@@ -347,7 +350,8 @@ int Graph::JarnikPrimMST()
         current_node = (*visit).to;
         distance = (*visit).distance;
         #ifdef DEBUG
-        cout << "[Graph] current " << current_node << " distance " << (*visit).distance << endl;
+        //cout << "[Graph] current " << current_node << " distance " << (*visit).distance << endl;
+        cout << "[Graph] " << (*visit).from << "->" << (*visit).to << "(" << (*visit).distance << ")" << endl;
         #endif // DEBUG
 
         // add adjacent nodes to open set
@@ -373,14 +377,16 @@ int Graph::JarnikPrimMST()
                     {
                         already_on_open = true;
 
-                        if (distance + m_graph[current_node][i] < (*it2).distance)
+                        // do not update visited distance
+                        if ((*it2).visited) break;
+
+                        if (/*distance +*/ m_graph[current_node][i] < (*it2).distance)
                         {
-                            #ifdef DEBUG
-                            cout << "i " << i << " current_node " << current_node << endl;
-                            cout << "from " << (*it2).from << " to " << (*it2).to << endl;
-                            cout << "new distance " << distance + m_graph[current_node][i] << " curr (*it2).distance " << (*it2).distance << endl;
-                            #endif // DEBUG
-                            (*it2).distance = distance + m_graph[current_node][i];
+                            #ifdef DEBUG_ITER
+                            cout << "[Graph] Update " << (*it2).from << "->" << (*it2).to << "(" << (*it2).distance << ") ";
+                            cout << "to " << current_node << "->" << i << "(" << m_graph[current_node][i] << ")" << endl;
+                            #endif // DEBUG_ITER
+                            (*it2).distance = /*distance +*/ m_graph[current_node][i];
                             (*it2).from = current_node;
                             break;
                         }
@@ -390,7 +396,7 @@ int Graph::JarnikPrimMST()
                 // if not found, add it
                 if (!already_on_open)
                 {
-                    open.push_back({current_node, i, m_graph[current_node][i]+distance, false});
+                    open.push_back({current_node, i, m_graph[current_node][i]/*+distance*/, false});
                 }
             }
         }

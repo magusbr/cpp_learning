@@ -1,9 +1,10 @@
 #include <iostream>
 #include "Graph.h"
+#include "homework1.h"
 
 using namespace std;
 
-void IraPohlGraph(Graph& g)
+void GraphIraPohl(Graph& g)
 {
     g.Addedge(4, 0, 1);
     g.Addedge(3, 0, 2);
@@ -86,7 +87,7 @@ void GraphMST2ndClass(Graph& g)
     g.Addedge(10, 4, 5);
 }
 
-int main()
+int main(int argc, char** argv)
 {
     /*Graph g(5);
     g.Addedge(1, 0, 1);
@@ -101,11 +102,15 @@ int main()
     g.DjikstraShortestPath(0, 3);
     */
     Graph g(9);
+    //GraphIraPohl(g);
     //GraphEasiest(g);
-    GraphMST2ndClass(g);
+    //GraphHarder(g);
+    //GraphMST2ndClass(g);
 
     //g.DjikstraShortestPath(0, 8);
-    g.JarnikPrimMST();
+    //g.JarnikPrimMST();
+
+    homework1::main();
 
     return 0;
 }
