@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Graph.h"
+#include "homework1.h"
 
 using namespace std;
 
@@ -86,7 +87,7 @@ void GraphMST2ndClass(Graph& g)
     g.Addedge(10, 4, 5);
 }
 
-int main()
+int main(int argc, char** argv)
 {
     /*Graph g(5);
     g.Addedge(1, 0, 1);
@@ -108,6 +109,8 @@ int main()
 
     //g.DjikstraShortestPath(0, 8);
     //g.JarnikPrimMST();
+
+    homework1::main();
 
     return 0;
 }

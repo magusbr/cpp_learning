@@ -11,9 +11,10 @@
 
 1455620644 c:\users\gustavo.teixeira\desktop\graph\graph.h
 
-1455626156 source:c:\users\gustavo.teixeira\desktop\graph\main.cpp
+1455711714 source:c:\users\gustavo.teixeira\desktop\graph\main.cpp
 	<iostream>
 	"Graph.h"
+	"homework1.h"
 
 1455585447 source:c:\users\gustavo\graph\cpp_learning\graph.cpp
 	"Graph.h"
@@ -31,8 +32,15 @@
 	<iostream>
 	"Graph.h"
 
-1455622041 source:c:\users\gustavo.teixeira\desktop\graph\funcs.cxx
+1455629681 source:c:\users\gustavo.teixeira\desktop\graph\funcs.cxx
 	<iostream>
 	<string>
 	<cstddef>
+
+1455711395 source:c:\users\gustavo.teixeira\desktop\graph\homework1.cpp
+	<iostream>
+	<algorithm>
+	<vector>
+
+1455711748 c:\users\gustavo.teixeira\desktop\graph\homework1.h
 
