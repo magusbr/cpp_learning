@@ -5,17 +5,25 @@
 class Graph
 {
     public:
-        Graph(unsigned int val);
-        virtual ~Graph();
-        Graph(const Graph& other);
-        Graph& operator=(const Graph& other);
+        // constructors and destructors
+        Graph():m_nodes(0),m_graph(nullptr) {}; // create an empty graph
+        Graph(unsigned int number); // create a graph with number of nodes
+        virtual ~Graph(); // delete graph and clean its internal memory
+        Graph(const Graph& other); // copy constructor
+        Graph& operator=(const Graph& other); // assignment operator
 
-        int Addedge(unsigned int val, unsigned int node1, unsigned int node2);
-        unsigned int Getnodes() { return m_nodes; }
-        unsigned int Getedges() { return m_edges; }
-        int** Getgraph() { return m_graph; }
-        void Setgraph(int** val) { m_graph = val; }
-        void Setnodes(int val);
+        // methods
+        unsigned int get_num_nodes(); // returns the number of nodes in the graph
+        unsigned int get_num_edges(); // returns the number of edges in the graph
+        bool adjacent_nodes(unsigned int& x, unsigned int& y); //tests whether there is an edge from node x to node y
+        unsigned int add_node(); // add node to graph
+        bool rem_node(unsigned int& node); // remove node from graph
+        //bool add_edge(unsigned int x, unsigned int y, unsigned int distance); // adds to graph the edge from x to y, if it is not there.
+        bool add_edge(const unsigned int& x, unsigned int& y, const unsigned int& distance); // adds to graph the edge from x to y, if it is not there.
+        bool rem_edge(unsigned int& x, unsigned int& y); // removes the edge from x to y, if it is there.
+        unsigned int get_edge_value(unsigned int& x, unsigned int& y); // returns the value associated to the edge (x,y).
+        bool set_edge_value(unsigned int& x, unsigned int& y, unsigned int& distance); // sets the value associated to the edge (x,y) to distance.
+
         bool Isconnected();
         int DjikstraShortestPath(unsigned int fro, unsigned int to);
         int JarnikPrimMST();
