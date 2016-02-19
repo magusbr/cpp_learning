@@ -12,21 +12,22 @@ using namespace std;
 #define DEBUG 1
 #define DEBUG_ITER 1
 
-Graph::Graph(unsigned int val)
+
+Graph::Graph(unsigned int number)
 {
     //ctor
-    m_nodes = val;
-    m_graph = new int*[val];
-    for (unsigned int i = 0; i < val; ++i)
+    m_nodes = number;
+    m_graph = new int*[number];
+    for (unsigned int i = 0; i < number; ++i)
     {
-        m_graph[i] = new int[val];
+        m_graph[i] = new int[number];
 
-        for (unsigned int j = 0; j < val; ++j)
+        for (unsigned int j = 0; j < number; ++j)
             m_graph[i][j] = 0;
     }
 
     #ifdef DEBUG
-        cout << "[Graph] created graph of size " << val << endl;
+        cout << "[Graph] created graph of size " << m_nodes << endl;
     #endif
 }
 
@@ -58,46 +59,110 @@ Graph& Graph::operator=(const Graph& rhs)
     return *this;
 }
 
-
-int Graph::Addedge(unsigned int val, unsigned int node1, unsigned int node2)
+unsigned int Graph::get_num_nodes()
 {
-    // consistency checks
-    if (node1 == node2)
-        return -1;
-    if ((node1 > m_nodes)
-        || (node2 > m_nodes))
-        return -1;
+    return m_nodes;
+}
 
-    m_edges++;
+unsigned int Graph::get_num_edges()
+{
+    return m_edges;
+}
 
-    m_graph[node1][node2] = val;
-    m_graph[node2][node1] = val;
+bool Graph::adjacent_nodes(unsigned int& x, unsigned int& y)
+{
+    if ((m_graph[x][y] > 0) || (m_graph[y][x]))
+        return true;
+    else
+        return false;
+}
 
-    #ifdef DEBUG
-    cout << "[Graph] added edge from " << node1 << " to " << node2 << endl;
-    #endif // DEBUG
+unsigned int Graph::add_node()
+{
 
     return 0;
 }
 
-void Graph::Setnodes(int val)
+bool Graph::rem_node(unsigned int& node)
 {
-    m_nodes = val;
-    m_graph = new int*[val];
-    for (int i = 0; i < val; ++i)
-    {
-        m_graph[i] = new int[val];
 
-        for (int j = 0; j < val; ++j)
-            m_graph[i][j] = 0;
-    }
-
-    #ifdef DEBUG
-        cout << "[Graph] set with size " << val << endl;
-    #endif
+    return 0;
 }
 
-bool Graph::Isconnected()
+/*bool Graph::add_edge(unsigned int x, unsigned int y, unsigned int distance)
+{
+    // consistency checks
+    if (x == y)
+        return false;
+    if ((x > m_nodes)
+        || (y > m_nodes))
+        return false;
+
+    m_edges++;
+
+    m_graph[x][y] = distance;
+    m_graph[y][x] = distance;
+
+    #ifdef DEBUG
+    cout << "[Graph] added edge from " << x << " to " << y << endl;
+    #endif // DEBUG
+
+    return true;
+}*/
+
+bool Graph::add_edge(const unsigned int& x, unsigned int& y, unsigned int& distance)
+{
+    // consistency checks
+    if (x == y)
+        return false;
+    if ((x > m_nodes)
+        || (y > m_nodes))
+        return false;
+
+    m_edges++;
+
+    m_graph[x][y] = distance;
+    m_graph[y][x] = distance;
+
+    #ifdef DEBUG
+    cout << "[Graph] added edge from " << x << " to " << y << endl;
+    #endif // DEBUG
+
+    return true;
+}
+
+bool Graph::rem_edge(unsigned int& x, unsigned int& y)
+{
+    if (m_graph[x][y] == 0)
+        return false;
+
+    m_graph[x][y] = 0;
+    m_graph[y][x] = 0;
+    m_edges--;
+
+    return true;
+}
+
+unsigned int Graph::get_edge_value(unsigned int& x, unsigned int& y)
+{
+    if ((x >= m_nodes) || (y >= m_nodes))
+        return 0;
+
+    return m_graph[x][y];
+}
+
+bool Graph::set_edge_value(unsigned int& x, unsigned int& y, unsigned int& distance)
+{
+    if ((x >= m_nodes) || (y >= m_nodes))
+        return false;
+
+    m_graph[x][y] = distance;
+
+    return true;
+}
+
+
+/*bool Graph::Isconnected()
 {
     int old_size = 0, c_size = 0;
     const int size = m_nodes;
@@ -147,7 +212,7 @@ bool Graph::Isconnected()
     delete [] close;
     return false;
 }
-
+*/
 
 /*
 closed nodes - nodes with known shortest path
