@@ -16,7 +16,7 @@
 	"Graph.h"
 	"homework1.h"
 
-1455585447 source:c:\users\gustavo\graph\cpp_learning\graph.cpp
+1455849102 source:c:\users\gustavo\graph\cpp_learning\graph.cpp
 	"Graph.h"
 	<cstdio>
 	<iostream>
@@ -26,11 +26,12 @@
 	<assert.h>
 	<algorithm>
 
-1455585447 c:\users\gustavo\graph\cpp_learning\graph.h
+1455849107 c:\users\gustavo\graph\cpp_learning\graph.h
 
-1455582170 source:c:\users\gustavo\graph\cpp_learning\main.cpp
+1455848545 source:c:\users\gustavo\graph\cpp_learning\main.cpp
 	<iostream>
 	"Graph.h"
+	"homework1.h"
 
 1455629681 source:c:\users\gustavo.teixeira\desktop\graph\funcs.cxx
 	<iostream>
@@ -43,4 +44,16 @@
 	<vector>
 
 1455711748 c:\users\gustavo.teixeira\desktop\graph\homework1.h
+
+1455743757 source:c:\users\gustavo\graph\cpp_learning\funcs.cxx
+	<iostream>
+	<string>
+	<cstddef>
+
+1455743757 source:c:\users\gustavo\graph\cpp_learning\homework1.cpp
+	<iostream>
+	<algorithm>
+	<vector>
+
+1455848545 c:\users\gustavo\graph\cpp_learning\homework1.h
 

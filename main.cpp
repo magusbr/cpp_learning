@@ -102,7 +102,7 @@ int main(int argc, char** argv)
     g.DjikstraShortestPath(0, 3);
     */
     Graph g(9);
-    //GraphIraPohl(g);
+    GraphIraPohl(g);
     //GraphEasiest(g);
     //GraphHarder(g);
     //GraphMST2ndClass(g);

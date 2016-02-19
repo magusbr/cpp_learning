@@ -19,7 +19,7 @@ class Graph
         unsigned int add_node(); // add node to graph
         bool rem_node(unsigned int& node); // remove node from graph
         //bool add_edge(unsigned int x, unsigned int y, unsigned int distance); // adds to graph the edge from x to y, if it is not there.
-        bool add_edge(const unsigned int& x, unsigned int& y, const unsigned int& distance); // adds to graph the edge from x to y, if it is not there.
+        bool add_edge(const unsigned int& x, const unsigned int& y, const unsigned int& distance); // adds to graph the edge from x to y, if it is not there.
         bool rem_edge(unsigned int& x, unsigned int& y); // removes the edge from x to y, if it is there.
         unsigned int get_edge_value(unsigned int& x, unsigned int& y); // returns the value associated to the edge (x,y).
         bool set_edge_value(unsigned int& x, unsigned int& y, unsigned int& distance); // sets the value associated to the edge (x,y) to distance.

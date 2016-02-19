@@ -110,7 +110,7 @@ bool Graph::rem_node(unsigned int& node)
     return true;
 }*/
 
-bool Graph::add_edge(const unsigned int& x, unsigned int& y, unsigned int& distance)
+bool Graph::add_edge(const unsigned int& x, const unsigned int& y, const unsigned int& distance)
 {
     // consistency checks
     if (x == y)
