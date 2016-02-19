@@ -34,6 +34,8 @@
 		</Compiler>
 		<Unit filename="Graph.cpp" />
 		<Unit filename="Graph.h" />
+		<Unit filename="ShortestPath.cpp" />
+		<Unit filename="ShortestPath.h" />
 		<Unit filename="funcs.cxx" />
 		<Unit filename="homework1.cpp" />
 		<Unit filename="homework1.h" />
