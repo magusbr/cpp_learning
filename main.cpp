@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Graph.h"
 #include "homework1.h"
+#include "ShortestPath.h"
 
 using namespace std;
 
@@ -111,6 +112,18 @@ int main(int argc, char** argv)
     //g.JarnikPrimMST();
 
     homework1::main();
+
+    // testing constructors
+    //
+    // new graph g_copy_overload is attributed graph g (operator= overload)
+    Graph g_copy_overload;
+    g_copy_overload = g;
+    // new graph
+    Graph g_copy_constr(g);
+    // graph g_copy_constr is attributed graph g (copy constructor)
+    //
+    // testing constructors end
+
 
     return 0;
 }
