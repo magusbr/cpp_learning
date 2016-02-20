@@ -1,4 +1,4 @@
-#include "ShortestPath.h"
+#include "GraphShortestPath.h"
 #include <vector>
 #include <assert.h>
 #include <algorithm>
@@ -6,17 +6,17 @@
 
 using namespace std;
 
-ShortestPath::ShortestPath(Graph* graph_ptr):graph_ptr(graph_ptr)
+GraphShortestPath::GraphShortestPath(Graph* graph_ptr):graph_ptr(graph_ptr)
 {
     //ctor
 }
 
-ShortestPath::~ShortestPath()
+GraphShortestPath::~GraphShortestPath()
 {
     //dtor
 }
 
-bool ShortestPath::Isconnected()
+bool GraphShortestPath::Isconnected()
 {
     int old_size = 0, c_size = 0;
     const int size = graph_ptr->get_num_nodes();
@@ -90,7 +90,7 @@ if no advance, pick another least cost
 - end
 destiny reaches the closed set
 */
-int ShortestPath::DjikstraShortestPath(unsigned int fro, unsigned int to)
+int GraphShortestPath::DjikstraShortestPath(unsigned int fro, unsigned int to)
 {
     vector<node_distance_t> open;
     //priority_queue type could be used maybe
@@ -221,7 +221,7 @@ int ShortestPath::DjikstraShortestPath(unsigned int fro, unsigned int to)
 
 
 
-int ShortestPath::JarnikPrimMST()
+int GraphShortestPath::JarnikPrimMST()
 {
     vector<node_distance_t> open;
     //priority_queue type could be used maybe

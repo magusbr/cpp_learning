@@ -104,6 +104,7 @@ int main(int argc, char** argv)
     */
     Graph g(9);
     GraphIraPohl(g);
+    g.print();
     //GraphEasiest(g);
     //GraphHarder(g);
     //GraphMST2ndClass(g);

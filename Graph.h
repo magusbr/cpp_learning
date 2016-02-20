@@ -27,6 +27,7 @@ class Graph
         bool rem_edge(const unsigned int& x, const unsigned int& y); // removes the edge from x to y, if it is there.
         unsigned int get_edge_value(const unsigned int& x, const unsigned int& y); // returns the value associated to the edge (x,y).
         bool set_edge_value(const unsigned int& x, const unsigned int& y, const unsigned int& distance); // sets the value associated to the edge (x,y) to distance.
+        void print(); // print internal representation of the graph (distance matrix)
 
         // TODO
         // test "explicit" keyword

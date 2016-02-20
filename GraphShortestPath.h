@@ -3,11 +3,11 @@
 
 #include "Graph.h"
 
-class ShortestPath
+class GraphShortestPath
 {
     public:
-        ShortestPath(Graph* graph_ptr);
-        virtual ~ShortestPath();
+        GraphShortestPath(Graph* graph_ptr);
+        virtual ~GraphShortestPath();
         bool Isconnected();
         int DjikstraShortestPath(unsigned int fro, unsigned int to);
         int JarnikPrimMST();

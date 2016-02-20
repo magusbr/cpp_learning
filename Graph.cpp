@@ -224,3 +224,15 @@ bool Graph::set_edge_value(const unsigned int& x, const unsigned int& y, const u
 
     return true;
 }
+
+void Graph::print()
+{
+    for (vector<vector<int>>::iterator line_it = dist_matrix.begin(); line_it != dist_matrix.end(); line_it++)
+    {
+        for (vector<int>::iterator col_it = (*line_it).begin(); col_it != (*line_it).end(); col_it++)
+        {
+            cout << *col_it << " ";
+        }
+        cout << endl;
+    }
+}
