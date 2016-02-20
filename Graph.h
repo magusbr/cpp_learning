@@ -1,13 +1,16 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <vector>
+
+using namespace std;
 
 class Graph
 {
     public:
         // constructors and destructors
-        Graph():m_nodes(0),m_graph(nullptr) {}; // create an empty graph
-        Graph(unsigned int number); // create a graph with number of nodes
+        Graph():num_nodes(0),num_edges(0),dist_matrix(0) {}; // create an empty graph
+        Graph(unsigned int num_nodes); // create a graph with number of nodes
         virtual ~Graph(); // delete graph and clean its internal memory
         Graph(const Graph& other); // copy constructor
         Graph& operator=(const Graph& other); // assignment operator
@@ -24,23 +27,22 @@ class Graph
         bool rem_edge(const unsigned int& x, const unsigned int& y); // removes the edge from x to y, if it is there.
         unsigned int get_edge_value(const unsigned int& x, const unsigned int& y); // returns the value associated to the edge (x,y).
         bool set_edge_value(const unsigned int& x, const unsigned int& y, const unsigned int& distance); // sets the value associated to the edge (x,y) to distance.
-        void delete_graph(); // auxiliary function to destructor and move constructors
 
         // TODO
         // test "explicit" keyword
         // conversion to basic data type overloading ()
         // friend functions
 
-        //C++11
-        //nullptr
-        //move constructor
+        // C++11:
+        // nullptr
+        // move constructor
 
     protected:
 
     private:
-        unsigned int m_nodes;
-        unsigned int m_edges;
-        int** m_graph;
+        unsigned int num_nodes;
+        unsigned int num_edges;
+        vector<vector<int>> dist_matrix;
 };
 
 #endif // GRAPH_H

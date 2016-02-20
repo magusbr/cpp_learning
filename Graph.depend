@@ -16,7 +16,7 @@
 	"Graph.h"
 	"homework1.h"
 
-1455884588 source:c:\users\gustavo\graph\cpp_learning\graph.cpp
+1456006408 source:c:\users\gustavo\graph\cpp_learning\graph.cpp
 	"Graph.h"
 	<cstdio>
 	<iostream>
@@ -26,7 +26,8 @@
 	<assert.h>
 	<algorithm>
 
-1455886011 c:\users\gustavo\graph\cpp_learning\graph.h
+1456006620 c:\users\gustavo\graph\cpp_learning\graph.h
+	<vector>
 
 1455884882 source:c:\users\gustavo\graph\cpp_learning\main.cpp
 	<iostream>

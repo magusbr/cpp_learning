@@ -13,28 +13,22 @@ using namespace std;
 #define DEBUG_ITER 1
 
 
-Graph::Graph(unsigned int number)
+Graph::Graph(unsigned int num_nodes):dist_matrix(num_nodes, vector<int>(num_nodes, 0))
 {
     //ctor
-    m_nodes = number;
-    m_graph = new int*[number];
-    for (unsigned int i = 0; i < number; ++i)
-    {
-        m_graph[i] = new int[number];
-
-        for (unsigned int j = 0; j < number; ++j)
-            m_graph[i][j] = 0;
-    }
+    this->num_nodes = num_nodes;
 
     #ifdef DEBUG
-        cout << "[Graph] created graph of size " << m_nodes << endl;
+        cout << "[Graph] created graph of size " << num_nodes << endl;
     #endif
 }
 
 Graph::~Graph()
 {
     //dtor
-    delete_graph();
+    num_nodes = 0;
+    num_edges = 0;
+    dist_matrix.clear();
 
     #ifdef DEBUG
     cout << "[Graph] deleted all" << endl;
@@ -44,9 +38,9 @@ Graph::~Graph()
 Graph::Graph(const Graph& other)
 {
     //copy ctor
-    m_nodes = 0;
-    m_edges = 0;
-    m_graph = nullptr;
+    num_nodes = other.num_nodes;
+    num_edges = other.num_edges;
+    dist_matrix = other.dist_matrix;
 
     #ifdef DEBUG
     cout << "[Graph] called copy constructor" << endl;
@@ -61,11 +55,17 @@ Graph& Graph::operator=(const Graph& other)
     #endif // DEBUG
 
     if (this == &other) return *this; // handle self assignment
+    else
+    {
+        num_nodes = other.num_nodes;
+        num_edges = other.num_edges;
+        dist_matrix = other.dist_matrix;
+    }
     return *this;
 }
 
 //C++11 move constructor
-Graph::Graph(Graph&& other):m_nodes(0), m_edges(0), m_graph(nullptr)
+Graph::Graph(Graph&& other):num_nodes(0), num_edges(0), dist_matrix()
 {
     //move ctor
     #ifdef DEBUG
@@ -76,13 +76,13 @@ Graph::Graph(Graph&& other):m_nodes(0), m_edges(0), m_graph(nullptr)
     // pilfer other's resources
     // reset other
 
-    m_nodes = other.m_nodes;
-    m_edges = other.m_edges;
-    m_graph = other.m_graph;
+    num_nodes = other.num_nodes;
+    num_edges = other.num_edges;
+    dist_matrix = other.dist_matrix;
 
-    other.m_nodes = 0;
-    other.m_edges = 0;
-    other.m_graph = nullptr;
+    other.num_nodes = 0;
+    other.num_edges = 0;
+    other.dist_matrix.clear();
 }
 
 //C++11 move assignment operator
@@ -101,51 +101,35 @@ Graph& Graph::operator=(Graph&& other)
 
     if (this!=&other)
     {
-        m_nodes = 0;
-        m_edges = 0;
-        delete_graph();
-        m_graph = nullptr;
+        num_nodes = 0;
+        num_edges = 0;
+        dist_matrix.clear();
 
-        m_nodes = other.m_nodes;
-        m_edges = other.m_edges;
-        m_graph = other.m_graph;
+        num_nodes = other.num_nodes;
+        num_edges = other.num_edges;
+        dist_matrix = other.dist_matrix;
 
-        other.m_nodes = 0;
-        other.m_edges = 0;
-        other.m_graph = nullptr;
+        other.num_nodes = 0;
+        other.num_edges = 0;
+        other.dist_matrix.clear();
     }
 
     return *this;
 }
 
-void Graph::delete_graph()
-{
-    for (unsigned int i = 0; i < m_nodes; ++i)
-    {
-        delete [] *m_graph;
-        #ifdef DEBUG
-        cout << "[Graph] deleted " << i << endl;
-        #endif
-    }
-    delete [] m_graph;
-
-    m_nodes = 0;
-    m_edges = 0;
-}
-
 unsigned int Graph::get_num_nodes()
 {
-    return m_nodes;
+    return num_nodes;
 }
 
 unsigned int Graph::get_num_edges()
 {
-    return m_edges;
+    return num_edges;
 }
 
 bool Graph::adjacent_nodes(const unsigned int& x, const unsigned int& y)
 {
-    if ((m_graph[x][y] > 0) || (m_graph[y][x]))
+    if ((dist_matrix[x][y] > 0) || (dist_matrix[y][x]))
         return true;
     else
         return false;
@@ -153,14 +137,41 @@ bool Graph::adjacent_nodes(const unsigned int& x, const unsigned int& y)
 
 unsigned int Graph::add_node()
 {
+    unsigned int new_size = dist_matrix.size();
+    vector<int> temp(new_size, 0);
+
+    dist_matrix.push_back(temp);
 
     return 0;
 }
 
 bool Graph::rem_node(const unsigned int& node)
 {
+    if (node >= dist_matrix.size())
+        return false;
 
-    return 0;
+    // update number of edges
+    // each edge going out of "node" will be subtracted
+    for (vector<int>::iterator it = (dist_matrix.begin()+node)->begin(); it != (dist_matrix.begin()+node)->end(); it++)
+        if ((*it) > 0) num_edges--;
+
+    // each line will have one less column at the position of node
+    for (vector<vector<int>>::iterator it = dist_matrix.begin(); it != dist_matrix.end(); it++)
+    {
+        (*it).erase((*it).begin()+node);
+    }
+
+    // then, remove the line for the node we want to remove
+    dist_matrix.erase(dist_matrix.begin()+node);
+
+    // update number of nodes
+    num_nodes--;
+
+    #ifdef DEBUG
+    cout << "[Graph] removed node " << node << " from graph" << endl;
+    #endif // DEBUG
+
+    return true;
 }
 
 bool Graph::add_edge(const unsigned int& x, const unsigned int& y, const unsigned int& distance)
@@ -168,14 +179,14 @@ bool Graph::add_edge(const unsigned int& x, const unsigned int& y, const unsigne
     // consistency checks
     if (x == y)
         return false;
-    if ((x > m_nodes)
-        || (y > m_nodes))
+    if ((x > num_nodes)
+        || (y > num_nodes))
         return false;
 
-    m_edges++;
+    num_edges++;
 
-    m_graph[x][y] = distance;
-    m_graph[y][x] = distance;
+    dist_matrix[x][y] = distance;
+    dist_matrix[y][x] = distance;
 
     #ifdef DEBUG
     cout << "[Graph] added edge from " << x << " to " << y << endl;
@@ -186,30 +197,30 @@ bool Graph::add_edge(const unsigned int& x, const unsigned int& y, const unsigne
 
 bool Graph::rem_edge(const unsigned int& x, const unsigned int& y)
 {
-    if (m_graph[x][y] == 0)
+    if (dist_matrix[x][y] == 0)
         return false;
 
-    m_graph[x][y] = 0;
-    m_graph[y][x] = 0;
-    m_edges--;
+    dist_matrix[x][y] = 0;
+    dist_matrix[y][x] = 0;
+    num_edges--;
 
     return true;
 }
 
 unsigned int Graph::get_edge_value(const unsigned int& x, const unsigned int& y)
 {
-    if ((x >= m_nodes) || (y >= m_nodes))
+    if ((x >= num_nodes) || (y >= num_nodes))
         return 0;
 
-    return m_graph[x][y];
+    return dist_matrix[x][y];
 }
 
 bool Graph::set_edge_value(const unsigned int& x, const unsigned int& y, const unsigned int& distance)
 {
-    if ((x >= m_nodes) || (y >= m_nodes))
+    if ((x >= num_nodes) || (y >= num_nodes))
         return false;
 
-    m_graph[x][y] = distance;
+    dist_matrix[x][y] = distance;
 
     return true;
 }
