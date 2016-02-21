@@ -1,7 +1,8 @@
 #include <iostream>
 #include "Graph.h"
 #include "homework1.h"
-#include "ShortestPath.h"
+#include "GraphShortestPath.h"
+#include "GraphSortedNodeDistanceList.h"
 
 using namespace std;
 
@@ -124,6 +125,18 @@ int main(int argc, char** argv)
     // graph g_copy_constr is attributed graph g (copy constructor)
     //
     // testing constructors end
+
+
+    GraphSortedNodeDistanceList graph_dist_list;
+    graph_dist_list.push(GraphNodeDistance(0, 1, 5));
+    graph_dist_list.push(GraphNodeDistance(0, 1, 3));
+    graph_dist_list.push(GraphNodeDistance(0, 2, 4));
+    graph_dist_list.push(GraphNodeDistance(0, 3, 7));
+    graph_dist_list.push(GraphNodeDistance(0, 4, 1));
+    graph_dist_list.print();
+    graph_dist_list.requeue(GraphNodeDistance(0, 3, 2));
+    graph_dist_list.print();
+
 
 
     return 0;
