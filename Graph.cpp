@@ -232,3 +232,13 @@ void Graph::print()
         cout << endl;
     }
 }
+
+unsigned int Graph::operator () (const unsigned int& node_from, const unsigned int& node_to)
+{
+    return dist_matrix[node_from][node_to];
+}
+
+void Graph::randomize(const unsigned int& num_nodes, const unsigned int& min_distance, const unsigned int& max_distance)
+{
+
+}

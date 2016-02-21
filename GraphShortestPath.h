@@ -2,20 +2,25 @@
 #define SHORTESTPATH_H
 
 #include "Graph.h"
+#include "GraphSortedNodeDistanceList.h"
 
 class GraphShortestPath
 {
     public:
-        GraphShortestPath(Graph* graph_ptr);
+        GraphShortestPath(const Graph& graph, const unsigned int& node_fro, const unsigned int& node_to);
         virtual ~GraphShortestPath();
         bool Isconnected();
         int DjikstraShortestPath(unsigned int fro, unsigned int to);
         int JarnikPrimMST();
+        unsigned int dijkstra();
 
     protected:
 
     private:
-        Graph* graph_ptr;
+        Graph graph;
+        unsigned int node_fro;
+        unsigned int node_to;
+        GraphSortedNodeDistanceList open_set;
 
         typedef struct node_distance_t
         {

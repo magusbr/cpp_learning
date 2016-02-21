@@ -28,6 +28,8 @@ class Graph
         unsigned int get_edge_value(const unsigned int& x, const unsigned int& y); // returns the value associated to the edge (x,y).
         bool set_edge_value(const unsigned int& x, const unsigned int& y, const unsigned int& distance); // sets the value associated to the edge (x,y) to distance.
         void print(); // print internal representation of the graph (distance matrix)
+        void randomize(const unsigned int& num_nodes, const unsigned int& min_distance, const unsigned int& max_distance); // generate graph with size num_nodes with random edges with size [min_distance, max_distance]
+        unsigned int operator () (const unsigned int& node_from, const unsigned int& node_to);
 
         // TODO
         // test "explicit" keyword

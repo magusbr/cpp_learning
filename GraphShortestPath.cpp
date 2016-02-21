@@ -6,9 +6,13 @@
 
 using namespace std;
 
-GraphShortestPath::GraphShortestPath(Graph* graph_ptr):graph_ptr(graph_ptr)
+GraphShortestPath::GraphShortestPath(const Graph& graph, const unsigned int& node_fro, const unsigned int& node_to):
+    graph(graph), node_fro(node_fro), node_to(node_to)
 {
     //ctor
+    // make sure nodes are valid
+    assert(node_fro < this->graph.get_num_nodes() && node_fro >= 0);
+    assert(node_to < this->graph.get_num_nodes() && node_to >= 0);
 }
 
 GraphShortestPath::~GraphShortestPath()
@@ -19,7 +23,7 @@ GraphShortestPath::~GraphShortestPath()
 bool GraphShortestPath::Isconnected()
 {
     int old_size = 0, c_size = 0;
-    const int size = graph_ptr->get_num_nodes();
+    const int size = graph.get_num_nodes();
 
     bool* close = new bool[size];
     bool* open = new bool[size];
@@ -40,7 +44,7 @@ bool GraphShortestPath::Isconnected()
                 c_size++;
 
                 for (int j = 0; j < size; ++j)
-                    open[j] = open[j] || graph_ptr->get_edge_value(i, j);
+                    open[j] = open[j] || graph.get_edge_value(i, j);
             }
 
         }
@@ -96,13 +100,13 @@ int GraphShortestPath::DjikstraShortestPath(unsigned int fro, unsigned int to)
     //priority_queue type could be used maybe
 
     // make sure nodes are valid
-    assert(fro < graph_ptr->get_num_nodes() && fro >= 0);
-    assert(to < graph_ptr->get_num_nodes() && to >= 0);
+    assert(fro < graph.get_num_nodes() && fro >= 0);
+    assert(to < graph.get_num_nodes() && to >= 0);
 
     // initialize open set with reachable nodes from origin
-    for (unsigned int i = 0; i < graph_ptr->get_num_nodes(); ++i)
-        if (graph_ptr->get_edge_value(fro, i) > 0)
-            open.push_back({fro, i, graph_ptr->get_edge_value(fro, i), false});
+    for (unsigned int i = 0; i < graph.get_num_nodes(); ++i)
+        if (graph.get_edge_value(fro, i) > 0)
+            open.push_back({fro, i, graph.get_edge_value(fro, i), false});
 
     // loop until open set is overrun or destiny reaches closed set
     unsigned int current_node = fro;
@@ -150,9 +154,9 @@ int GraphShortestPath::DjikstraShortestPath(unsigned int fro, unsigned int to)
 
         // add adjacent nodes to open set
         // if already there, just update distance
-        for (unsigned int i = 0; i < graph_ptr->get_num_nodes(); ++i)
+        for (unsigned int i = 0; i < graph.get_num_nodes(); ++i)
         {
-            if (graph_ptr->get_edge_value(current_node, i) > 0)
+            if (graph.get_edge_value(current_node, i) > 0)
             {
                 // if already on open set, update distance
                 already_on_open = false;
@@ -174,13 +178,13 @@ int GraphShortestPath::DjikstraShortestPath(unsigned int fro, unsigned int to)
                         // do not update visited distance
                         if ((*it2).visited) break;
 
-                        if (distance + graph_ptr->get_edge_value(current_node, i) < (*it2).distance)
+                        if (distance + graph.get_edge_value(current_node, i) < (*it2).distance)
                         {
                             #ifdef DEBUG_ITER
                             cout << "[Graph] Update " << (*it2).from << "->" << (*it2).to << "(" << (*it2).distance << ") ";
-                            cout << "to " << current_node << "->" << i << "(" << distance+m_graph[current_node][i] << ")" << endl;
+                            cout << "to " << current_node << "->" << i << "(" << distance+graph.get_edge_value(current_node, i) << ")" << endl;
                             #endif // DEBUG_ITER
-                            (*it2).distance = distance + graph_ptr->get_edge_value(current_node, i);
+                            (*it2).distance = distance + graph.get_edge_value(current_node, i);
                             (*it2).from = current_node;
                             break;
                         }
@@ -190,7 +194,7 @@ int GraphShortestPath::DjikstraShortestPath(unsigned int fro, unsigned int to)
                 // if not found, add it
                 if (!already_on_open)
                 {
-                    open.push_back({current_node, i, graph_ptr->get_edge_value(current_node, i)+distance, false});
+                    open.push_back({current_node, i, graph.get_edge_value(current_node, i)+distance, false});
                 }
             }
         }
@@ -227,9 +231,9 @@ int GraphShortestPath::JarnikPrimMST()
     //priority_queue type could be used maybe
 
     // initialize open set with reachable nodes from origin
-    for (unsigned int i = 0; i < graph_ptr->get_num_nodes(); ++i)
-        if (graph_ptr->get_edge_value(0, i) > 0)
-            open.push_back({0, i, graph_ptr->get_edge_value(0, i), false});
+    for (unsigned int i = 0; i < graph.get_num_nodes(); ++i)
+        if (graph.get_edge_value(0, i) > 0)
+            open.push_back({0, i, graph.get_edge_value(0, i), false});
 
     // loop until open set is overrun or destiny reaches closed set
     unsigned int current_node = 0;
@@ -274,9 +278,9 @@ int GraphShortestPath::JarnikPrimMST()
 
         // add adjacent nodes to open set
         // if already there, just update distance
-        for (unsigned int i = 0; i < graph_ptr->get_num_nodes(); ++i)
+        for (unsigned int i = 0; i < graph.get_num_nodes(); ++i)
         {
-            if (graph_ptr->get_edge_value(current_node, i) > 0)
+            if (graph.get_edge_value(current_node, i) > 0)
             {
                 // if already on open set, update distance
                 already_on_open = false;
@@ -298,13 +302,13 @@ int GraphShortestPath::JarnikPrimMST()
                         // do not update visited distance
                         if ((*it2).visited) break;
 
-                        if (graph_ptr->get_edge_value(current_node, i) < (*it2).distance)
+                        if (graph.get_edge_value(current_node, i) < (*it2).distance)
                         {
                             #ifdef DEBUG_ITER
                             cout << "[Graph] Update " << (*it2).from << "->" << (*it2).to << "(" << (*it2).distance << ") ";
-                            cout << "to " << current_node << "->" << i << "(" << m_graph[current_node][i] << ")" << endl;
+                            cout << "to " << current_node << "->" << i << "(" << graph.get_edge_value(current_node, i) << ")" << endl;
                             #endif // DEBUG_ITER
-                            (*it2).distance = graph_ptr->get_edge_value(current_node, i);
+                            (*it2).distance = graph.get_edge_value(current_node, i);
                             (*it2).from = current_node;
                             break;
                         }
@@ -314,7 +318,7 @@ int GraphShortestPath::JarnikPrimMST()
                 // if not found, add it
                 if (!already_on_open)
                 {
-                    open.push_back({current_node, i, graph_ptr->get_edge_value(current_node, i), false});
+                    open.push_back({current_node, i, graph.get_edge_value(current_node, i), false});
                 }
             }
         }
@@ -323,6 +327,150 @@ int GraphShortestPath::JarnikPrimMST()
     for (auto it=open.begin(); it!=open.end(); ++it)
         cout << (*it).from << "->" << (*it).to << "(" << (*it).distance << ") ";
     cout << endl;
+
+    return distance;
+}
+
+
+
+
+
+
+
+
+
+
+
+unsigned int GraphShortestPath::dijkstra()
+{
+    vector<node_distance_t> open;
+    //priority_queue type could be used maybe
+
+    // initialize open set with reachable nodes from origin
+    unsigned int local_distance = 0;
+    for (unsigned int i = 0; i < graph.get_num_nodes(); ++i)
+    {
+        local_distance = graph.get_edge_value(node_fro, i);
+        if (local_distance > 0)
+            open_set.push(GraphNodeDistance(node_fro, node_to, local_distance));
+    }
+
+    // loop until open set is overrun or destiny reaches closed set
+    GraphNodeDistance current;
+    //unsigned int current_node = node_fro;
+    int distance = 0;
+    bool any_visit = false;
+    bool already_on_open = false;
+    while (true)
+    {
+        #ifdef DEBUG
+        cout << "[Graph] ordered open: ";
+        open_set.print();
+        #endif // DEBUG
+
+        // get the non-visited least distance on open set
+        current = open_set.top();
+        //
+        //
+        //
+        // TODO
+        //
+        //
+        // identify if top is empty
+        //
+        //
+        //
+        //
+        any_visit = false;
+        vector<node_distance_t>::iterator visit;
+        for (vector<node_distance_t>::iterator it=open.begin(); it!=open.end(); ++it)
+        {
+            if ((*it).visited) continue;
+            any_visit = true;
+
+            visit = it;
+            break;
+        }
+
+        if (!any_visit)
+            return -1;
+
+        // set visited
+        (*visit).visited = true;
+        current_node = (*visit).to;
+        distance = (*visit).distance;
+        #ifdef DEBUG
+        //cout << "[Graph] current " << current_node << " distance " << (*visit).distance << endl;
+        cout << "[Graph] " << (*visit).from << "->" << (*visit).to << "(" << (*visit).distance << ")" << endl;
+        #endif // DEBUG
+
+        if (current_node == to)
+            break;
+
+        // add adjacent nodes to open set
+        // if already there, just update distance
+        for (unsigned int i = 0; i < graph.get_num_nodes(); ++i)
+        {
+            if (graph.get_edge_value(current_node, i) > 0)
+            {
+                // if already on open set, update distance
+                already_on_open = false;
+                // automatically detect iterator type
+                for (auto it2=open.begin(); it2!=open.end(); ++it2)
+                {
+                    // ignore inverted path (0->1) or (1->0) because both were already visited
+                    if ((((*it2).from == i) && ((*it2).to == current_node)))
+                    {
+                        already_on_open = true;
+                        break;
+                    }
+
+                    // if already on open set, just update
+                    if ((*it2).to == i)
+                    {
+                        already_on_open = true;
+
+                        // do not update visited distance
+                        if ((*it2).visited) break;
+
+                        if (distance + graph.get_edge_value(current_node, i) < (*it2).distance)
+                        {
+                            #ifdef DEBUG_ITER
+                            cout << "[Graph] Update " << (*it2).from << "->" << (*it2).to << "(" << (*it2).distance << ") ";
+                            cout << "to " << current_node << "->" << i << "(" << distance+graph.get_edge_value(current_node, i) << ")" << endl;
+                            #endif // DEBUG_ITER
+                            (*it2).distance = distance + graph.get_edge_value(current_node, i);
+                            (*it2).from = current_node;
+                            break;
+                        }
+                    }
+                }
+
+                // if not found, add it
+                if (!already_on_open)
+                {
+                    open.push_back({current_node, i, graph.get_edge_value(current_node, i)+distance, false});
+                }
+            }
+        }
+    }
+
+
+    for (vector<node_distance_t>::iterator it=open.begin(); it!=open.end(); ++it)
+        cout << (*it).from << "->" << (*it).to << endl;
+    cout << endl;
+
+    int current = current_node;
+    cout << "shortest path: ";
+    for (vector<node_distance_t>::reverse_iterator it=open.rbegin(); it!=open.rend(); ++it)
+    {
+        if ((*it).to == (unsigned int)current)
+        {
+            current = (*it).from;
+            cout << (*it).to << " ";
+        }
+    }
+    cout << fro << endl;
 
     return distance;
 }

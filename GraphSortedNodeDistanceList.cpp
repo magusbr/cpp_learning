@@ -42,7 +42,7 @@ void GraphSortedNodeDistanceList::push(const GraphNodeDistance& node_distance)
         distance_queue.push_back(node_distance);
 
         // sort after adding
-        sort(distance_queue.begin(), distance_queue.end(), GraphSortedNodeDistanceList());
+        sort(distance_queue.rbegin(), distance_queue.rend(), GraphSortedNodeDistanceList());
     }
 }
 
@@ -99,7 +99,7 @@ void GraphSortedNodeDistanceList::print()
 {
     for (auto element : distance_queue)
     {
-        cout << element << "(" << element.get_distance() << ") ";
+        cout << element.get_origin() << "->" << element << "(" << element.get_distance() << ") ";
     }
     cout << endl;
 }
