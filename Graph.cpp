@@ -9,10 +9,6 @@
 #include <algorithm>
 using namespace std;
 
-#define DEBUG 1
-#define DEBUG_ITER 1
-
-
 Graph::Graph(unsigned int num_nodes):dist_matrix(num_nodes, vector<int>(num_nodes, 0))
 {
     //ctor

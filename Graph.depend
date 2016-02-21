@@ -16,7 +16,7 @@
 	"Graph.h"
 	"homework1.h"
 
-1456007731 source:c:\users\gustavo\graph\cpp_learning\graph.cpp
+1456021685 source:c:\users\gustavo\graph\cpp_learning\graph.cpp
 	"Graph.h"
 	<cstdio>
 	<iostream>
@@ -26,10 +26,10 @@
 	<assert.h>
 	<algorithm>
 
-1456007585 c:\users\gustavo\graph\cpp_learning\graph.h
+1456003985 c:\users\gustavo\graph\cpp_learning\graph.h
 	<vector>
 
-1456007578 source:c:\users\gustavo\graph\cpp_learning\main.cpp
+1456003978 source:c:\users\gustavo\graph\cpp_learning\main.cpp
 	<iostream>
 	"Graph.h"
 	"homework1.h"
@@ -47,17 +47,17 @@
 
 1455711748 c:\users\gustavo.teixeira\desktop\graph\homework1.h
 
-1455743757 source:c:\users\gustavo\graph\cpp_learning\funcs.cxx
+1455740157 source:c:\users\gustavo\graph\cpp_learning\funcs.cxx
 	<iostream>
 	<string>
 	<cstddef>
 
-1455743757 source:c:\users\gustavo\graph\cpp_learning\homework1.cpp
+1455740157 source:c:\users\gustavo\graph\cpp_learning\homework1.cpp
 	<iostream>
 	<algorithm>
 	<vector>
 
-1455848545 c:\users\gustavo\graph\cpp_learning\homework1.h
+1455844945 c:\users\gustavo\graph\cpp_learning\homework1.h
 
 1455883941 source:c:\users\gustavo\graph\cpp_learning\shortestpath.cpp
 	"ShortestPath.h"
@@ -68,4 +68,26 @@
 
 1455883927 c:\users\gustavo\graph\cpp_learning\shortestpath.h
 	"Graph.h"
+
+1456004312 source:c:\users\gustavo\graph\cpp_learning\graphshortestpath.cpp
+	"GraphShortestPath.h"
+	<vector>
+	<assert.h>
+	<algorithm>
+	<iostream>
+
+1456004290 c:\users\gustavo\graph\cpp_learning\graphshortestpath.h
+	"Graph.h"
+
+1456022740 source:c:\users\gustavo\graph\cpp_learning\graphnodedistance.cpp
+	"GraphNodeDistance.h"
+
+1456022730 c:\users\gustavo\graph\cpp_learning\graphnodedistance.h
+
+1456023011 source:c:\users\gustavo\graph\cpp_learning\graphsortednodedistancelist.cpp
+	"GraphSortedNodeDistanceList.h"
+
+1456023550 c:\users\gustavo\graph\cpp_learning\graphsortednodedistancelist.h
+	<vector>
+	"GraphNodeDistance.h"
 

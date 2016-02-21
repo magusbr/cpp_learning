@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -31,11 +33,16 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add option="-DDEBUG=1 -DDEBUG_ITER=1" />
 		</Compiler>
 		<Unit filename="Graph.cpp" />
 		<Unit filename="Graph.h" />
+		<Unit filename="GraphNodeDistance.cpp" />
+		<Unit filename="GraphNodeDistance.h" />
 		<Unit filename="GraphShortestPath.cpp" />
 		<Unit filename="GraphShortestPath.h" />
+		<Unit filename="GraphSortedNodeDistanceList.cpp" />
+		<Unit filename="GraphSortedNodeDistanceList.h" />
 		<Unit filename="funcs.cxx" />
 		<Unit filename="homework1.cpp" />
 		<Unit filename="homework1.h" />
