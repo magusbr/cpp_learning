@@ -16,7 +16,8 @@ class GraphSortedNodeDistanceList
         GraphNodeDistance pop(); // remove top element (less distance) of the sorted list
         GraphNodeDistance top(); // return top element (less distance) of the sorted list
         unsigned int size(); // return number of elements in sorted list
-        bool contains(const GraphNodeDistance& node_distance); // return true if elemet is in sorted list
+        bool contains(const GraphNodeDistance& node_distance); // return true if element is in sorted list
+        bool contains_opened(const GraphNodeDistance& node_distance); // same as above but only for opened elements
         void requeue(const GraphNodeDistance& node_distance); // change priority of sorted list element, reordering its position
         bool operator() (const GraphNodeDistance& graph_distance1, const GraphNodeDistance& graph_distance2); // used to sort the list
         void print();

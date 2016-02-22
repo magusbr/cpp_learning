@@ -26,7 +26,7 @@ class GraphNodeDistance
 
         // overloaded operators
         // cast int gets the destiny node
-        operator int();
+        operator unsigned int();
 
     protected:
 

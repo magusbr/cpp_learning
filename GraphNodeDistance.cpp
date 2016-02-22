@@ -17,7 +17,7 @@ void GraphNodeDistance::set_opened()
 }
 
 // cast int gets the destiny node
-GraphNodeDistance::operator int()
+GraphNodeDistance::operator unsigned int()
 {
     return node_dest;
 }

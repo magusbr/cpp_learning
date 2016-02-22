@@ -28,7 +28,25 @@ bool GraphSortedNodeDistanceList::contains(const GraphNodeDistance& node_distanc
     for (auto element : distance_queue)
     {
         if (node_distance.get_destiny() == element.get_destiny())
+        {
             return true;
+        }
+    }
+
+    return false;
+}
+
+bool GraphSortedNodeDistanceList::contains_opened(const GraphNodeDistance& node_distance)
+{
+    // check if element destiny is already on sorted list
+    for (auto element : distance_queue)
+    {
+        if (node_distance.get_destiny() == element.get_destiny())
+        {
+            if (node_distance.is_closed())
+                return false;
+            return true;
+        }
     }
 
     return false;
