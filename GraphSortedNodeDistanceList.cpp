@@ -36,6 +36,21 @@ bool GraphSortedNodeDistanceList::contains(const GraphNodeDistance& node_distanc
     return false;
 }
 
+bool GraphSortedNodeDistanceList::contains(const unsigned int& node)
+{
+    // check if element destiny is already on sorted list
+    for (auto element : distance_queue)
+    {
+        if ((node == element.get_destiny())
+            || (node == element.get_origin()))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool GraphSortedNodeDistanceList::contains_opened(const GraphNodeDistance& node_distance)
 {
     // check if element destiny is already on sorted list
@@ -60,28 +75,17 @@ void GraphSortedNodeDistanceList::push(const GraphNodeDistance& node_distance)
         distance_queue.push_back(node_distance);
 
         // sort after adding
-        sort(distance_queue.rbegin(), distance_queue.rend(), GraphSortedNodeDistanceList());
+        sort(distance_queue.begin(), distance_queue.end(), GraphSortedNodeDistanceList());
     }
 }
 
-// return the least distance element which is not closed
-GraphNodeDistance GraphSortedNodeDistanceList::top()
-{
-    for (auto element : distance_queue)
-    {
-        if (element.is_closed()) return element;
-    }
-
-    // undefined behavior when calling on an empty GraphSortedNodeDistanceList
-    return GraphNodeDistance(0, 0, 0);
-}
-
+// return the least distance element which is not closed and remove it from list
 GraphNodeDistance GraphSortedNodeDistanceList::pop()
 {
 
     for (auto it = distance_queue.begin(); it != distance_queue.end(); it++)
     {
-        if ((*it).is_closed())
+        if (!(*it).is_closed())
         {
             GraphNodeDistance ret = (*it);
             distance_queue.erase(it);
@@ -90,7 +94,8 @@ GraphNodeDistance GraphSortedNodeDistanceList::pop()
     }
 
     // undefined behavior when calling on an empty GraphSortedNodeDistanceList
-    return GraphNodeDistance(0, 0, 0);
+    GraphNodeDistance ret = GraphNodeDistance(0, 0, 0);
+    return ret;
 }
 
 void GraphSortedNodeDistanceList::requeue(const GraphNodeDistance& node_distance)

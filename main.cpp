@@ -106,6 +106,8 @@ int main(int argc, char** argv)
     Graph g(9);
     GraphIraPohl(g);
     g.print();
+    GraphShortestPath gsp = GraphShortestPath(g, 0, 8);
+    gsp.dijkstra();
     //GraphEasiest(g);
     //GraphHarder(g);
     //GraphMST2ndClass(g);

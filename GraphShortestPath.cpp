@@ -353,7 +353,7 @@ unsigned int GraphShortestPath::dijkstra()
     {
         local_distance = graph.get_edge_value(node_fro, i);
         if (local_distance > 0)
-            open_set.push(GraphNodeDistance(node_fro, node_to, local_distance));
+            open_set.push(GraphNodeDistance(node_fro, i, local_distance));
     }
 
     // loop until open set is overrun or destiny reaches closed set
@@ -364,30 +364,25 @@ unsigned int GraphShortestPath::dijkstra()
         open_set.print();
         #endif // DEBUG
 
-        // get the non-visited least distance on open set
-        current = open_set.top();
-        //
-        //
-        //
-        // TODO
-        //
-        //
-        // identify if top is empty
-        //
-        //
-        //
-        //
-        if ((current == 0) && (current.get_origin() == 0))
+        // get the non-visited with least distance on open set
+        current = open_set.pop();
+
+        // if top is empty, there is no way to get to destination
+        if ((current.get_destiny() == 0) && (current.get_origin() == 0) && (current.get_distance() == 0))
             return -1;
 
         // set visited
         current.set_closed();
         distance = current.get_distance();
 
+        // reinsert the current path to the ordered list, but now marked visited
+        open_set.push(current);
+
         #ifdef DEBUG
         cout << "[Graph] " << current.get_origin() << "->" << current << "(" << current.get_distance() << ")" << endl;
         #endif // DEBUG
 
+        // did we get to destination? then stop
         if (current == node_to)
             break;
 
@@ -399,10 +394,16 @@ unsigned int GraphShortestPath::dijkstra()
             if (local_distance > 0)
             {
                 GraphNodeDistance current_to_node(current, i, distance+local_distance);
-                if (open_set.contains_opened(current_to_node))
+                // is "i" already reached by any other node?
+                // if still opened it can be updated
+
+                // precisa verificar se existe caminho de current_node -> i ou i -> current_node na lista
+                // caso nao haja nenhum, adiciona
+                // caso encontre, atualizar apenas no caso de current_node -> i, se aberto
+                if (open_set.contains(i))
                 {
                     // already there. update distance?
-                    if (current.get_destiny() == i)
+                    /*if (current.get_destiny() == i)
                     {
                         // update!
                         #ifdef DEBUG_ITER
@@ -414,11 +415,11 @@ unsigned int GraphShortestPath::dijkstra()
                     else if (current.get_origin() == i)
                     {
 
-                    }
-                    else
-                    {
-                        open_set.push(current_to_node);
-                    }
+                    }*/
+                }
+                else // if (!open_set.contains(current_to_node))
+                {
+                    open_set.push(current_to_node);
                 }
                 // automatically detect iterator type
 /*                for (auto it2=open.begin(); it2!=open.end(); ++it2)
@@ -454,6 +455,7 @@ unsigned int GraphShortestPath::dijkstra()
                 }*/
             }
         }
+
     }
 
 
