@@ -51,22 +51,6 @@ bool GraphSortedNodeDistanceList::contains(const unsigned int& node)
     return false;
 }
 
-bool GraphSortedNodeDistanceList::contains_opened(const GraphNodeDistance& node_distance)
-{
-    // check if element destiny is already on sorted list
-    for (auto element : distance_queue)
-    {
-        if (node_distance.get_destiny() == element.get_destiny())
-        {
-            if (node_distance.is_closed())
-                return false;
-            return true;
-        }
-    }
-
-    return false;
-}
-
 void GraphSortedNodeDistanceList::push(const GraphNodeDistance& node_distance)
 {
     // add only if not already there
@@ -111,6 +95,23 @@ void GraphSortedNodeDistanceList::requeue(const GraphNodeDistance& node_distance
     }
 
     push(node_distance);
+}
+
+void GraphSortedNodeDistanceList::requeue_opened(const GraphNodeDistance& node_distance)
+{
+    // only makes sense when element is already in list
+    for (auto it = distance_queue.begin(); it != distance_queue.end(); it++)
+    {
+        if ((node_distance.get_destiny() == (*it).get_destiny()) && (!(*it).is_closed()))
+        {
+            if ((*it).get_distance() > node_distance.get_distance())
+            {
+                distance_queue.erase(it);
+                push(node_distance);
+            }
+            break;
+        }
+    }
 }
 
 unsigned int GraphSortedNodeDistanceList::size()

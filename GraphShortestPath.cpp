@@ -390,69 +390,26 @@ unsigned int GraphShortestPath::dijkstra()
         // if already there, just update distance
         for (unsigned int i = 0; i < graph.get_num_nodes(); ++i)
         {
+            // is "i" already reached by any other node?
+            // if still opened it can be updated
             local_distance = graph.get_edge_value(current, i);
             if (local_distance > 0)
             {
                 GraphNodeDistance current_to_node(current, i, distance+local_distance);
-                // is "i" already reached by any other node?
-                // if still opened it can be updated
 
-                // precisa verificar se existe caminho de current_node -> i ou i -> current_node na lista
-                // caso nao haja nenhum, adiciona
-                // caso encontre, atualizar apenas no caso de current_node -> i, se aberto
+                // check if there is a way from current -> i or i -> current_node on open list
+                // if there is not, add it
+                // if there is, update distance and origin from current_node -> i, if opened
                 if (open_set.contains(i))
                 {
-                    // already there. update distance?
-                    /*if (current.get_destiny() == i)
-                    {
-                        // update!
-                        #ifdef DEBUG_ITER
-                        cout << "[Graph] Update " << current << "->" << i << "(" << current.get_distance() << ") ";
-                        cout << "to " << current_to_node.get_origin() << "->" << current_to_node << "(" << distance+local_distance << ")" << endl;
-                        #endif // DEBUG_ITER
-                        open_set.requeue(current_to_node);
-                    }
-                    else if (current.get_origin() == i)
-                    {
-
-                    }*/
+                    // update distance if opened and less than current
+                    open_set.requeue_opened(current_to_node);
                 }
-                else // if (!open_set.contains(current_to_node))
+                else
                 {
+                    // "i" is not on open (or closed) set. add it to open
                     open_set.push(current_to_node);
                 }
-                // automatically detect iterator type
-/*                for (auto it2=open.begin(); it2!=open.end(); ++it2)
-                {
-                    // ignore inverted path (0->1) or (1->0) because both were already visited
-                    if ((((*it2).from == i) && ((*it2).to == current_node)))
-                    {
-                        already_on_open = true;
-                        break;
-                    }
-
-                    // if already on open set, just update
-                    if ((*it2).to == i)
-                    {
-                        already_on_open = true;
-
-                        // do not update visited distance
-                        if ((*it2).visited) break;
-
-                        if (distance + local_distance < (*it2).distance)
-                        {
-                            (*it2).distance = distance + local_distance;
-                            (*it2).from = current_node;
-                            break;
-                        }
-                    }
-                }
-
-                // if not found, add it
-                if (!already_on_open)
-                {
-                    open.push_back({current_node, i, local_distance+distance, false});
-                }*/
             }
         }
 
