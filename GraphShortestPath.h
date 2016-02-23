@@ -9,10 +9,11 @@ class GraphShortestPath
     public:
         GraphShortestPath(const Graph& graph, const unsigned int& node_fro, const unsigned int& node_to);
         virtual ~GraphShortestPath();
-        bool Isconnected();
-        int DjikstraShortestPath(unsigned int fro, unsigned int to);
-        int JarnikPrimMST();
-        unsigned int dijkstra();
+        bool is_connected(); // return true if graph is connect and false if not
+        unsigned int dijkstra(); // find the least cost path between node_fro and node_to
+        void path_print() const; // print the path found, if any
+        int path_size() const; // return the least cost path distance
+        void path_size_print() const; // print the path distance, if found
 
     protected:
 
@@ -20,23 +21,9 @@ class GraphShortestPath
         Graph graph;
         unsigned int node_fro;
         unsigned int node_to;
+        int min_distance;
         GraphSortedNodeDistanceList open_set;
-
-        typedef struct node_distance_t
-        {
-            unsigned int from;
-            unsigned int to;
-            unsigned int distance;
-            bool visited;
-        } node_distance_t;
-
-        struct compare_node_distance_t
-        {
-            inline bool operator() (const node_distance_t& struct1, const node_distance_t& struct2)
-            {
-                return (struct1.distance < struct2.distance);
-            }
-        };
+        GraphSortedNodeDistanceList closed_set;
 };
 
 #endif // SHORTESTPATH_H

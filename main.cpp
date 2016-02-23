@@ -104,16 +104,14 @@ int main(int argc, char** argv)
     g.DjikstraShortestPath(0, 3);
     */
     Graph g(9);
-    GraphIraPohl(g);
+    //GraphIraPohl(g);
+    //GraphEasiest(g);
+    GraphHarder(g);
     g.print();
     GraphShortestPath gsp = GraphShortestPath(g, 0, 8);
     gsp.dijkstra();
-    //GraphEasiest(g);
-    //GraphHarder(g);
-    //GraphMST2ndClass(g);
-
-    //g.DjikstraShortestPath(0, 8);
-    //g.JarnikPrimMST();
+    gsp.path_print();
+    gsp.path_size_print();
 
     homework1::main();
 

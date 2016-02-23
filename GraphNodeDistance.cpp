@@ -5,19 +5,8 @@ GraphNodeDistance::~GraphNodeDistance()
     //dtor
 }
 
-
-void GraphNodeDistance::set_closed()
-{
-    closed = true;
-}
-
-void GraphNodeDistance::set_opened()
-{
-    closed = false;
-}
-
 // cast int gets the destiny node
-GraphNodeDistance::operator unsigned int()
+GraphNodeDistance::operator unsigned int() const
 {
     return node_dest;
 }

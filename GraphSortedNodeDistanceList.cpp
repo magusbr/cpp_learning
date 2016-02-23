@@ -63,23 +63,40 @@ void GraphSortedNodeDistanceList::push(const GraphNodeDistance& node_distance)
     }
 }
 
-// return the least distance element which is not closed and remove it from list
+// return the least distance element and remove it from list
 GraphNodeDistance GraphSortedNodeDistanceList::pop()
 {
-
-    for (auto it = distance_queue.begin(); it != distance_queue.end(); it++)
+    if (distance_queue.size() > 0)
     {
-        if (!(*it).is_closed())
-        {
-            GraphNodeDistance ret = (*it);
-            distance_queue.erase(it);
-            return ret;
-        }
+        vector<GraphNodeDistance>::iterator it = distance_queue.begin();
+        GraphNodeDistance ret = (*it);
+        distance_queue.erase(it);
+        return ret;
     }
+    else
+    {
+        // return null GraphNodeDistance if not found
+        GraphNodeDistance ret = GraphNodeDistance(0, 0, 0);
+        return ret;
+    }
+}
 
-    // undefined behavior when calling on an empty GraphSortedNodeDistanceList
-    GraphNodeDistance ret = GraphNodeDistance(0, 0, 0);
-    return ret;
+// return the most costly element and remove it from list
+GraphNodeDistance GraphSortedNodeDistanceList::bottom()
+{
+    if (distance_queue.size() > 0)
+    {
+        vector<GraphNodeDistance>::iterator it = distance_queue.begin() + (distance_queue.size()-1);
+        GraphNodeDistance ret = (*it);
+        distance_queue.erase(it);
+        return ret;
+    }
+    else
+    {
+        // return null GraphNodeDistance if not found
+        GraphNodeDistance ret = GraphNodeDistance(0, 0, 0);
+        return ret;
+    }
 }
 
 void GraphSortedNodeDistanceList::requeue(const GraphNodeDistance& node_distance)
@@ -97,12 +114,12 @@ void GraphSortedNodeDistanceList::requeue(const GraphNodeDistance& node_distance
     push(node_distance);
 }
 
-void GraphSortedNodeDistanceList::requeue_opened(const GraphNodeDistance& node_distance)
+void GraphSortedNodeDistanceList::requeue_on_less_distance(const GraphNodeDistance& node_distance)
 {
     // only makes sense when element is already in list
     for (auto it = distance_queue.begin(); it != distance_queue.end(); it++)
     {
-        if ((node_distance.get_destiny() == (*it).get_destiny()) && (!(*it).is_closed()))
+        if (node_distance.get_destiny() == (*it).get_destiny())
         {
             if ((*it).get_distance() > node_distance.get_distance())
             {
@@ -119,11 +136,16 @@ unsigned int GraphSortedNodeDistanceList::size()
     return distance_queue.size();
 }
 
-void GraphSortedNodeDistanceList::print()
+void GraphSortedNodeDistanceList::print() const
 {
     for (auto element : distance_queue)
     {
         cout << element.get_origin() << "->" << element << "(" << element.get_distance() << ") ";
     }
     cout << endl;
+}
+
+void GraphSortedNodeDistanceList::clear()
+{
+    distance_queue.clear();
 }
