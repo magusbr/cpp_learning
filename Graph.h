@@ -31,14 +31,6 @@ class Graph
         void randomize(const unsigned int& num_nodes, const unsigned int& min_distance, const unsigned int& max_distance); // generate graph with size num_nodes with random edges with size [min_distance, max_distance]
         unsigned int operator () (const unsigned int& node_from, const unsigned int& node_to);
 
-        // TODO
-        // test "explicit" keyword
-        // conversion to basic data type overloading ()
-        // friend functions
-
-        // C++11:
-        // nullptr
-        // move constructor
 
     protected:
 
