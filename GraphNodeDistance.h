@@ -13,10 +13,10 @@ class GraphNodeDistance
         // getter / setters
         unsigned int get_origin() const { return node_orig; } ;
         unsigned int get_destiny() const { return node_dest; } ;
-        unsigned int get_distance() const { return node_dist; } ;
+        double get_distance() const { return node_dist; } ;
         void set_origin(unsigned int orig) { node_orig = orig; }
         void set_destiny(unsigned int dest) { node_dest = dest; }
-        void set_distance(unsigned int dist) { node_dist = dist; }
+        void set_distance(double dist) { node_dist = dist; }
 
         // return true if the current GraphNodeDistance is less than graph_node_distance
         bool compare(const GraphNodeDistance& graph_node_distance) const;
@@ -30,7 +30,7 @@ class GraphNodeDistance
     private:
         unsigned int node_orig;
         unsigned int node_dest;
-        unsigned int node_dist;
+        double node_dist;
 };
 
 #endif // GRAPHNODEDISTANCE_H

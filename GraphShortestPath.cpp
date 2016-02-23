@@ -62,11 +62,11 @@ bool GraphShortestPath::is_connected()
     return false;
 }
 
-unsigned int GraphShortestPath::dijkstra()
+double GraphShortestPath::dijkstra()
 {
-    unsigned int local_distance = 0;
+    double local_distance = 0.0;
     GraphNodeDistance current(0, 0, 0);
-    int distance = 0;
+    double distance = 0.0;
     open_set.clear();
     closed_set.clear();
 
@@ -74,7 +74,7 @@ unsigned int GraphShortestPath::dijkstra()
     for (unsigned int i = 0; i < graph.get_num_nodes(); ++i)
     {
         local_distance = graph.get_edge_value(node_fro, i);
-        if (local_distance > 0)
+        if (local_distance > 0.0)
             open_set.push(GraphNodeDistance(node_fro, i, local_distance));
     }
 
@@ -91,7 +91,7 @@ unsigned int GraphShortestPath::dijkstra()
 
         // if top is empty, there is no way to get to destination
         if ((current.get_destiny() == 0) && (current.get_origin() == 0) && (current.get_distance() == 0))
-            return (min_distance = -1);
+            return (min_distance = -1.0);
 
         // set visited
         distance = current.get_distance();
@@ -187,14 +187,14 @@ void GraphShortestPath::path_print() const
     }
 }
 
-int GraphShortestPath::path_size() const
+double GraphShortestPath::path_size() const
 {
     return min_distance;
 }
 
 void GraphShortestPath::path_size_print() const
 {
-    if (min_distance != -1)
+    if (min_distance < 0.0)
     {
         cout << "Distance from " << node_fro << " to " << node_to << " is: " << min_distance << endl;
     }

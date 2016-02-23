@@ -10,7 +10,7 @@
 #include <time.h>
 using namespace std;
 
-Graph::Graph(const unsigned int& num_nodes):dist_matrix(num_nodes, vector<unsigned double>(num_nodes, 0.0))
+Graph::Graph(const unsigned int& num_nodes):dist_matrix(num_nodes, vector<double>(num_nodes, 0.0))
 {
     //ctor
     this->num_nodes = num_nodes;
@@ -20,8 +20,8 @@ Graph::Graph(const unsigned int& num_nodes):dist_matrix(num_nodes, vector<unsign
     #endif
 }
 
-Graph::Graph(const unsigned int& num_nodes, const double& edge_density, const unsigned double& min_distance, const unsigned double& max_distance):
-    num_nodes(num_nodes), dist_matrix(num_nodes, vector<int>(num_nodes, 0))
+Graph::Graph(const unsigned int& num_nodes, const double& edge_density, const double& min_distance, const double& max_distance):
+    num_nodes(num_nodes), dist_matrix(num_nodes, vector<double>(num_nodes, 0))
 {
     //ctor
     randomize(edge_density, min_distance, max_distance);
@@ -147,7 +147,7 @@ bool Graph::adjacent_nodes(const unsigned int& x, const unsigned int& y)
 unsigned int Graph::add_node()
 {
     unsigned int new_size = dist_matrix.size();
-    vector<int> temp(new_size, 0);
+    vector<double> temp(new_size, 0);
 
     dist_matrix.push_back(temp);
 
@@ -161,11 +161,11 @@ bool Graph::rem_node(const unsigned int& node)
 
     // update number of edges
     // each edge going out of "node" will be subtracted
-    for (vector<int>::iterator it = (dist_matrix.begin()+node)->begin(); it != (dist_matrix.begin()+node)->end(); it++)
+    for (vector<double>::iterator it = (dist_matrix.begin()+node)->begin(); it != (dist_matrix.begin()+node)->end(); it++)
         if ((*it) > 0) num_edges--;
 
     // each line will have one less column at the position of node
-    for (vector<vector<int>>::iterator it = dist_matrix.begin(); it != dist_matrix.end(); it++)
+    for (vector<vector<double>>::iterator it = dist_matrix.begin(); it != dist_matrix.end(); it++)
     {
         (*it).erase((*it).begin()+node);
     }
@@ -183,13 +183,15 @@ bool Graph::rem_node(const unsigned int& node)
     return true;
 }
 
-bool Graph::add_edge(const unsigned int& x, const unsigned int& y, const unsigned int& distance)
+bool Graph::add_edge(const unsigned int& x, const unsigned int& y, const double& distance)
 {
     // consistency checks
     if (x == y)
         return false;
     if ((x > num_nodes)
         || (y > num_nodes))
+        return false;
+    if (distance < 0.0)
         return false;
 
     num_edges++;
@@ -216,7 +218,7 @@ bool Graph::rem_edge(const unsigned int& x, const unsigned int& y)
     return true;
 }
 
-unsigned int Graph::get_edge_value(const unsigned int& x, const unsigned int& y)
+double Graph::get_edge_value(const unsigned int& x, const unsigned int& y)
 {
     if ((x >= num_nodes) || (y >= num_nodes))
         return 0;
@@ -224,9 +226,11 @@ unsigned int Graph::get_edge_value(const unsigned int& x, const unsigned int& y)
     return dist_matrix[x][y];
 }
 
-bool Graph::set_edge_value(const unsigned int& x, const unsigned int& y, const unsigned int& distance)
+bool Graph::set_edge_value(const unsigned int& x, const unsigned int& y, const double& distance)
 {
     if ((x >= num_nodes) || (y >= num_nodes))
+        return false;
+    if (distance < 0.0)
         return false;
 
     dist_matrix[x][y] = distance;
@@ -236,9 +240,11 @@ bool Graph::set_edge_value(const unsigned int& x, const unsigned int& y, const u
 
 void Graph::print()
 {
-    for (vector<vector<int>>::iterator line_it = dist_matrix.begin(); line_it != dist_matrix.end(); line_it++)
+    cout.precision(2);
+    cout.setf(ios::fixed, ios::floatfield);
+    for (vector<vector<double>>::iterator line_it = dist_matrix.begin(); line_it != dist_matrix.end(); line_it++)
     {
-        for (vector<int>::iterator col_it = (*line_it).begin(); col_it != (*line_it).end(); col_it++)
+        for (vector<double>::iterator col_it = (*line_it).begin(); col_it != (*line_it).end(); col_it++)
         {
             cout << *col_it << " ";
         }
@@ -246,7 +252,7 @@ void Graph::print()
     }
 }
 
-unsigned int Graph::operator () (const unsigned int& node_from, const unsigned int& node_to)
+double Graph::operator () (const unsigned int& node_from, const unsigned int& node_to)
 {
     return dist_matrix[node_from][node_to];
 }
@@ -256,12 +262,12 @@ double Graph::prob()
     return static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
 }
 
-int Graph::prob_range(const unsigned int& min_distance, const unsigned int& max_distance)
+double Graph::prob_range(const double& min_distance, const double& max_distance)
 {
-    return static_cast<int>(min_distance + static_cast <float> (rand()) / (static_cast<float>(RAND_MAX / (max_distance - min_distance))));
+    return static_cast<double>(min_distance + static_cast <double> (rand()) / (static_cast<double>(RAND_MAX / (max_distance - min_distance))));
 }
 
-void Graph::randomize(const double& edge_density, const unsigned int& min_distance, const unsigned int& max_distance)
+void Graph::randomize(const double& edge_density, const double& min_distance, const double& max_distance)
 {
 	srand(time(0)); // seed rand()
 
@@ -269,9 +275,10 @@ void Graph::randomize(const double& edge_density, const unsigned int& min_distan
 	{
 		for (unsigned int j = i; j < num_nodes; ++j)
 		{
-			if (i == j) dist_matrix[i][j] = 0; // no loops
+			if (i == j) dist_matrix[i][j] = 0.0; // no loops
 			else if (prob() < edge_density)
             {
+                num_edges++;
                 dist_matrix[i][j] = dist_matrix[j][i] = prob_range(min_distance, max_distance);
             }
 		}
