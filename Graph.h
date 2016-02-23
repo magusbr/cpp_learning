@@ -20,16 +20,19 @@ class Graph
         Graph& operator=(Graph&& other); // assignment move operator (C++11)
 
         // methods
-        unsigned int get_num_nodes(); // returns the number of nodes in the graph
-        unsigned int get_num_edges(); // returns the number of edges in the graph
+        unsigned int get_num_nodes() const; // returns the number of nodes in the graph
+        unsigned int get_num_edges() const; // returns the number of edges in the graph
         bool adjacent_nodes(const unsigned int& x, const unsigned int& y); //tests whether there is an edge from node x to node y
         unsigned int add_node(); // add node to graph
         bool rem_node(const unsigned int& node); // remove node from graph
         bool add_edge(const unsigned int& x, const unsigned int& y, const double& distance); // adds to graph the edge from x to y, if it is not there.
         bool rem_edge(const unsigned int& x, const unsigned int& y); // removes the edge from x to y, if it is there.
-        double get_edge_value(const unsigned int& x, const unsigned int& y); // returns the value associated to the edge (x,y).
+        double get_edge_value(const unsigned int& x, const unsigned int& y) const; // returns the value associated to the edge (x,y).
         bool set_edge_value(const unsigned int& x, const unsigned int& y, const double& distance); // sets the value associated to the edge (x,y) to distance.
-        void print(); // print internal representation of the graph (distance matrix)
+        void print() const; // print internal representation of the graph (distance matrix)
+        bool is_connected(); // return true if graph is connect and false if not
+
+        // overloaded operators
         double operator () (const unsigned int& node_from, const unsigned int& node_to);
 
 

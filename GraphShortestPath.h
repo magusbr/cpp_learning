@@ -9,7 +9,6 @@ class GraphShortestPath
     public:
         GraphShortestPath(const Graph& graph, const unsigned int& node_fro, const unsigned int& node_to);
         virtual ~GraphShortestPath();
-        bool is_connected(); // return true if graph is connect and false if not
         double dijkstra(); // find the least cost path between node_fro and node_to
         void path_print() const; // print the path found, if any
         double path_size() const; // return the least cost path distance

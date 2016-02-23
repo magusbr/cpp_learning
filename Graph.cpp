@@ -126,12 +126,12 @@ Graph& Graph::operator=(Graph&& other)
     return *this;
 }
 
-unsigned int Graph::get_num_nodes()
+unsigned int Graph::get_num_nodes() const
 {
     return num_nodes;
 }
 
-unsigned int Graph::get_num_edges()
+unsigned int Graph::get_num_edges() const
 {
     return num_edges;
 }
@@ -218,7 +218,7 @@ bool Graph::rem_edge(const unsigned int& x, const unsigned int& y)
     return true;
 }
 
-double Graph::get_edge_value(const unsigned int& x, const unsigned int& y)
+double Graph::get_edge_value(const unsigned int& x, const unsigned int& y) const
 {
     if ((x >= num_nodes) || (y >= num_nodes))
         return 0;
@@ -238,13 +238,13 @@ bool Graph::set_edge_value(const unsigned int& x, const unsigned int& y, const d
     return true;
 }
 
-void Graph::print()
+void Graph::print() const
 {
     cout.precision(2);
     cout.setf(ios::fixed, ios::floatfield);
-    for (vector<vector<double>>::iterator line_it = dist_matrix.begin(); line_it != dist_matrix.end(); line_it++)
+    for (vector<vector<double>>::const_iterator line_it = dist_matrix.begin(); line_it != dist_matrix.end(); line_it++)
     {
-        for (vector<double>::iterator col_it = (*line_it).begin(); col_it != (*line_it).end(); col_it++)
+        for (vector<double>::const_iterator col_it = (*line_it).begin(); col_it != (*line_it).end(); col_it++)
         {
             cout << *col_it << " ";
         }
@@ -283,4 +283,47 @@ void Graph::randomize(const double& edge_density, const double& min_distance, co
             }
 		}
 	}
+}
+
+
+bool Graph::is_connected()
+{
+    int old_size = 0, c_size = 0;
+    const int size = get_num_nodes();
+
+    vector<bool> close(size, false);
+    vector<bool> open(size, false);
+
+    open[0] = true;
+
+    while (c_size < size)
+    {
+        for (int i = 0; i < size; ++i)
+        {
+            old_size = c_size;
+            if (open[i] && (close[i] == false))
+            {
+                close[i] = true;
+                c_size++;
+
+                for (int j = 0; j < size; ++j)
+                    open[j] = open[j] || (get_edge_value(i, j) > 0.0);
+            }
+
+        }
+
+        #ifdef DEBUG_ITER
+        cout << "c_size: " << c_size << " size: " << size << endl;
+        #endif // DEBUG_ITER
+        if (c_size == size)
+        {
+            return true; // connected
+        }
+        if (old_size == c_size)
+        {
+            return false; // unconnected
+        }
+    }
+
+    return false;
 }

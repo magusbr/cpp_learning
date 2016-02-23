@@ -20,48 +20,6 @@ GraphShortestPath::~GraphShortestPath()
     //dtor
 }
 
-bool GraphShortestPath::is_connected()
-{
-    int old_size = 0, c_size = 0;
-    const int size = graph.get_num_nodes();
-
-    vector<bool> close(size, false);
-    vector<bool> open(size, false);
-
-    open[0] = true;
-
-    while (c_size < size)
-    {
-        for (int i = 0; i < size; ++i)
-        {
-            old_size = c_size;
-            if (open[i] && (close[i] == false))
-            {
-                close[i] = true;
-                c_size++;
-
-                for (int j = 0; j < size; ++j)
-                    open[j] = open[j] || graph.get_edge_value(i, j);
-            }
-
-        }
-
-        #ifdef DEBUG_ITER
-        cout << "c_size: " << c_size << " size: " << size << endl;
-        #endif // DEBUG_ITER
-        if (c_size == size)
-        {
-            return true; // connected
-        }
-        if (old_size == c_size)
-        {
-            return false; // unconnected
-        }
-    }
-
-    return false;
-}
-
 double GraphShortestPath::dijkstra()
 {
     double local_distance = 0.0;
