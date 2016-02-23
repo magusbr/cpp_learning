@@ -7,15 +7,28 @@
 #include <stack>
 #include <assert.h>
 #include <algorithm>
+#include <time.h>
 using namespace std;
 
-Graph::Graph(unsigned int num_nodes):dist_matrix(num_nodes, vector<int>(num_nodes, 0))
+Graph::Graph(const unsigned int& num_nodes):dist_matrix(num_nodes, vector<unsigned double>(num_nodes, 0.0))
 {
     //ctor
     this->num_nodes = num_nodes;
 
     #ifdef DEBUG
         cout << "[Graph] created graph of size " << num_nodes << endl;
+    #endif
+}
+
+Graph::Graph(const unsigned int& num_nodes, const double& edge_density, const unsigned double& min_distance, const unsigned double& max_distance):
+    num_nodes(num_nodes), dist_matrix(num_nodes, vector<int>(num_nodes, 0))
+{
+    //ctor
+    randomize(edge_density, min_distance, max_distance);
+
+    #ifdef DEBUG
+        cout << "[Graph] created graph of size [" << num_nodes << "], edge density [" << edge_density;
+        cout << "], distance range [" << min_distance << "," << max_distance << "]" << endl;
     #endif
 }
 
@@ -238,7 +251,29 @@ unsigned int Graph::operator () (const unsigned int& node_from, const unsigned i
     return dist_matrix[node_from][node_to];
 }
 
-void Graph::randomize(const unsigned int& num_nodes, const unsigned int& min_distance, const unsigned int& max_distance)
+double Graph::prob()
 {
+    return static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
+}
 
+int Graph::prob_range(const unsigned int& min_distance, const unsigned int& max_distance)
+{
+    return static_cast<int>(min_distance + static_cast <float> (rand()) / (static_cast<float>(RAND_MAX / (max_distance - min_distance))));
+}
+
+void Graph::randomize(const double& edge_density, const unsigned int& min_distance, const unsigned int& max_distance)
+{
+	srand(time(0)); // seed rand()
+
+	for (unsigned int i = 0; i < num_nodes; ++i)
+	{
+		for (unsigned int j = i; j < num_nodes; ++j)
+		{
+			if (i == j) dist_matrix[i][j] = 0; // no loops
+			else if (prob() < edge_density)
+            {
+                dist_matrix[i][j] = dist_matrix[j][i] = prob_range(min_distance, max_distance);
+            }
+		}
+	}
 }
