@@ -1,11 +1,15 @@
 #run mingwvars.bat
 #mingw32-make.exe -f Makefile.in
 
+#comment this line if in Linux:
+RM=del
 CC=mingw32-g++
 #to view debug prints (too much)
 #CFLAGS=-std=c++14 -I. -DDEBUG=1 -DDEBUG_ITER=1
 CFLAGS=-std=c++14 -I.
 OBJ = Graph.o GraphNodeDistance.o GraphSortedNodeDistanceList.o GraphShortestPath.o GraphMonteCarlo.o main.o
+
+all: monte_carlo clean
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c -o $@ $<
@@ -13,4 +17,6 @@ OBJ = Graph.o GraphNodeDistance.o GraphSortedNodeDistanceList.o GraphShortestPat
 monte_carlo: $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
 
-all: monte_carlo
+clean:
+	$(RM) *.o
+
