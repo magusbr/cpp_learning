@@ -2,6 +2,8 @@
 #mingw32-make.exe -f Makefile.in
 
 CC=mingw32-g++
+#to view debug prints (too much)
+#CFLAGS=-std=c++14 -I. -DDEBUG=1 -DDEBUG_ITER=1
 CFLAGS=-std=c++14 -I.
 OBJ = Graph.o GraphNodeDistance.o GraphSortedNodeDistanceList.o GraphShortestPath.o GraphMonteCarlo.o main.o
 

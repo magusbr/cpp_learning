@@ -6,14 +6,14 @@ class GraphNodeDistance
 {
     public:
         // constructor / destructor
-        GraphNodeDistance(unsigned int node_orig, unsigned int node_dest, unsigned int node_dist, bool closed = false):
+        GraphNodeDistance(const unsigned int& node_orig, const unsigned int& node_dest, const double& node_dist, const bool& closed = false):
             node_orig(node_orig), node_dest(node_dest), node_dist(node_dist) { }
         virtual ~GraphNodeDistance();
 
         // getter / setters
-        unsigned int get_origin() const { return node_orig; } ;
-        unsigned int get_destiny() const { return node_dest; } ;
-        double get_distance() const { return node_dist; } ;
+        inline unsigned int get_origin() const { return node_orig; } ;
+        inline unsigned int get_destiny() const { return node_dest; } ;
+        inline double get_distance() const { return node_dist; } ;
         void set_origin(unsigned int orig) { node_orig = orig; }
         void set_destiny(unsigned int dest) { node_dest = dest; }
         void set_distance(double dist) { node_dist = dist; }

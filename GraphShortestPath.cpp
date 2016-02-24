@@ -106,7 +106,7 @@ void GraphShortestPath::path_print() const
     GraphSortedNodeDistanceList set = closed_set;
     GraphNodeDistance node_distance = GraphNodeDistance(0, 0, 0);
     // print only if min distance was actually found
-    if (min_distance != -1)
+    if (min_distance != -1.0)
     {
         cout << "Minimum path from " << node_fro << " to " << node_to << " is:" << endl;
         unsigned int current = node_to;
