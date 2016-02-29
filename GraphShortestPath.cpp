@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <algorithm>
 #include <iostream>
+#include <iomanip> // cout << setw(width)
 
 using namespace std;
 
@@ -180,21 +181,19 @@ void GraphShortestPath::dijkstra_all()
             }
         }
     }
-
-    //return (min_distance = distance);
 }
 
 
-void GraphShortestPath::path_print() const
+void GraphShortestPath::path_print(const unsigned int& to_node) const
 {
     vector<int> path;
     GraphSortedNodeDistanceList set = closed_set;
     GraphNodeDistance node_distance = GraphNodeDistance(0, 0, 0);
     // print only if min distance was actually found
-    if (min_distance[node_to] != -1.0)
+    if (min_distance[to_node] != -1.0)
     {
-        cout << "Minimum path from " << node_fro << " to " << node_to << " is:" << endl;
-        unsigned int current = node_to;
+        cout << node_fro << " to " << to_node << " [";
+        unsigned int current = to_node;
 
         // loop over closed set getting origin from current node, starting from destination node until source node
         while (true)
@@ -218,15 +217,15 @@ void GraphShortestPath::path_print() const
         for (auto it = path.rbegin(); it != path.rend(); it++)
         {
             if ((it+1) != (path.rend()))
-                cout << (*it) << " -> ";
+                cout << (*it) << "->";
             else
                 cout << (*it);
         }
-        cout << endl;
+        cout << "]" << endl;
     }
     else
     {
-        cout << "Minimum path from" << node_fro << " to " << node_to << " could not be found." << endl;
+        cout << node_fro << " to " << to_node << " could not be found." << endl;
     }
 }
 
@@ -251,3 +250,16 @@ void GraphShortestPath::path_size_print() const
         cout << "Distance from " << node_fro << " to " << node_to << " could not be found." << endl;
     }
 }
+
+void GraphShortestPath::path_size_print(const unsigned int& to_node) const
+{
+    if (min_distance[to_node] < 0.0)
+    {
+        cout << "Distance from " << node_fro << " to " << to_node << " is: " << min_distance[to_node] << endl;
+    }
+    else
+    {
+        cout << "Distance from " << node_fro << " to " << to_node << " could not be found." << endl;
+    }
+}
+

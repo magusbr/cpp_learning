@@ -8,6 +8,7 @@
 #include <assert.h>
 #include <algorithm>
 #include <time.h>
+#include <iomanip>
 using namespace std;
 
 Graph::Graph(const unsigned int& num_nodes):dist_matrix(num_nodes, vector<double>(num_nodes, 0.0))
@@ -240,8 +241,8 @@ bool Graph::set_edge_value(const unsigned int& x, const unsigned int& y, const d
 
 void Graph::print() const
 {
-    cout.precision(2);
     cout.setf(ios::fixed, ios::floatfield);
+    cout.precision(2);
     for (vector<vector<double>>::const_iterator line_it = dist_matrix.begin(); line_it != dist_matrix.end(); line_it++)
     {
         for (vector<double>::const_iterator col_it = (*line_it).begin(); col_it != (*line_it).end(); col_it++)

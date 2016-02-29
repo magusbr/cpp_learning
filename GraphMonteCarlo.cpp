@@ -1,4 +1,5 @@
 #include "GraphMonteCarlo.h"
+#include <iomanip>
 
 GraphMonteCarlo::GraphMonteCarlo(const unsigned int& num_nodes, const double& density, const double& min_dist, const double& max_dist):
     num_nodes(num_nodes), density(density), min_dist(min_dist), max_dist(max_dist), graph(num_nodes, density, min_dist, max_dist)
@@ -36,8 +37,8 @@ double GraphMonteCarlo::calculate_average_shortest_path()
     for (unsigned int i = 1; i < num_nodes; i++)
     {
         sum += gsp.path_size(i);
-        cout << "[GraphMonteCarlo] calculating shortest path from 0->" << i << endl;
-        cout << "[GraphMonteCarlo] distance from 0->" << i << "=" << gsp.path_size(i) << endl;
+        cout << "[GraphMonteCarlo] Minimum distance " << setw(5) << gsp.path_size(i) << " from ";
+        gsp.path_print(i);
     }
 
     average = sum / (num_nodes - 1);
