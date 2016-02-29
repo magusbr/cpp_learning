@@ -2,8 +2,8 @@
 #mingw32-make.exe -f Makefile.in
 
 #comment this line if in Linux:
-RM=del
-CC=mingw32-g++
+#RM=del
+CC=g++
 #to view debug prints (too much)
 #CFLAGS=-std=c++14 -I. -DDEBUG=1 -DDEBUG_ITER=1
 CFLAGS=-std=c++14 -I.

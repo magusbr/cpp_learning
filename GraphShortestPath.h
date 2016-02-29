@@ -10,6 +10,7 @@ class GraphShortestPath
         GraphShortestPath(const Graph& graph, const unsigned int& node_fro, const unsigned int& node_to);
         virtual ~GraphShortestPath();
         double dijkstra(); // find the least cost path between node_fro and node_to
+        double dijkstra_all(); // find the least cost path between node_fro and all other nodes
         void path_print() const; // print the path found, if any
         double path_size() const; // return the least cost path distance
         void path_size_print() const; // print the path distance, if found
