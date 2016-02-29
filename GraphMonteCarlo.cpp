@@ -30,12 +30,14 @@ double GraphMonteCarlo::calculate_average_shortest_path()
         return (this->average = 0.0);
     }
 
+    GraphShortestPath gsp = GraphShortestPath(graph, 0);
+    gsp.dijkstra_all();
+
     for (unsigned int i = 1; i < num_nodes; i++)
     {
+        sum += gsp.path_size(i);
         cout << "[GraphMonteCarlo] calculating shortest path from 0->" << i << endl;
-        GraphShortestPath gsp = GraphShortestPath(graph, 0, i);
-        sum += gsp.dijkstra();
-        cout << "[GraphMonteCarlo] distance from 0->" << i << "=" << gsp.path_size() << endl;
+        cout << "[GraphMonteCarlo] distance from 0->" << i << "=" << gsp.path_size(i) << endl;
     }
 
     average = sum / (num_nodes - 1);

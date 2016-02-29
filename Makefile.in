@@ -12,7 +12,7 @@ OBJ = Graph.o GraphNodeDistance.o GraphSortedNodeDistanceList.o GraphShortestPat
 all: monte_carlo clean
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -g -c -o $@ $<
 
 monte_carlo: $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
