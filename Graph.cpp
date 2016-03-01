@@ -9,6 +9,9 @@
 #include <algorithm>
 #include <time.h>
 #include <iomanip>
+#include <string>
+#include <fstream>
+#include <iterator>
 using namespace std;
 
 Graph::Graph(const unsigned int& num_nodes):dist_matrix(num_nodes, vector<double>(num_nodes, 0.0))
@@ -31,6 +34,24 @@ Graph::Graph(const unsigned int& num_nodes, const double& edge_density, const do
         cout << "[Graph] created graph of size [" << num_nodes << "], edge density [" << edge_density;
         cout << "], distance range [" << min_distance << "," << max_distance << "]" << endl;
     #endif
+}
+
+Graph::Graph(string graph_file_name)
+{
+    // graph_file from file name in parameter
+    ifstream graph_file(graph_file_name.c_str());
+    // iterator starting on file beggining
+    istream_iterator<string> start(graph_file), end;
+
+    // fill the vector from start to end of the file
+    vector<string> graph_data(start, end);
+
+    //#ifdef DEBUG
+    for(vector<string>::iterator it = graph_data.begin(); it != graph_data.end(); it++)
+    {
+        cout << (*it) << endl;
+    }
+    //#endif
 }
 
 Graph::~Graph()

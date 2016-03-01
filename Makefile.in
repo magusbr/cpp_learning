@@ -7,7 +7,7 @@ CC=g++
 #to view debug prints (too much)
 #CFLAGS=-std=c++14 -I. -DDEBUG=1 -DDEBUG_ITER=1 -g
 CFLAGS=-std=c++14 -I.
-OBJ = Graph.o GraphNodeDistance.o GraphSortedNodeDistanceList.o GraphShortestPath.o GraphMonteCarlo.o GraphMinimumSpanningTree.o GraphFileRead.o main.o
+OBJ = Graph.o GraphNodeDistance.o GraphSortedNodeDistanceList.o GraphShortestPath.o GraphMonteCarlo.o GraphMinimumSpanningTree.o main.o
 
 all: monte_carlo clean
 
