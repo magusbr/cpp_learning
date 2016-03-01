@@ -19,14 +19,14 @@ class GraphShortestPath
         void path_size_print(const unsigned int& to_node) const;
 
     protected:
-
-    private:
         Graph graph;
         unsigned int node_fro;
         unsigned int node_to;
         vector<double> min_distance;
         GraphSortedNodeDistanceList open_set;
         GraphSortedNodeDistanceList closed_set;
+
+    private:
 };
 
 #endif // SHORTESTPATH_H
