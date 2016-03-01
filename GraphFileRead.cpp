@@ -1,6 +1,10 @@
 #include "GraphFileRead.h"
+#include "Graph.h"
 
-GraphFileRead::GraphFileRead()
+using namespace std;
+
+GraphFileRead::GraphFileRead(string graph_file_name):
+    graph_file_name(graph_file_name), graph_file(graph_file_name), graph()
 {
     //ctor
 }

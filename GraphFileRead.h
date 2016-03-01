@@ -5,16 +5,23 @@
 #include "GraphShortestPath.h"
 #include <vector>
 #include <iostream>
+#include <fstream>
+#include <string>
 
 using namespace std;
 
 class GraphFileRead
 {
     public:
-        GraphFileRead();
+        GraphFileRead(string graph_file_name);
         virtual ~GraphFileRead();
 
+        Graph& get_graph();
+
     protected:
+        string graph_file_name;
+        ifstream graph_file;
+        Graph graph;
 
     private:
 };
