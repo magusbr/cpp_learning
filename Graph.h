@@ -13,6 +13,7 @@ class Graph
         Graph(const unsigned int& num_nodes); // create a graph with number of nodes
         // create a random graph of size num_nodes, with density of edge_density, and edges varying in range [min_distance, max_distance]
         Graph(const unsigned int& num_nodes, const double& edge_density, const double& min_distance, const double& max_distance);
+        Graph(string graph_file_name);
         virtual ~Graph(); // delete graph and clean its internal memory
         Graph(const Graph& other); // copy constructor
         Graph& operator=(const Graph& other); // assignment operator
