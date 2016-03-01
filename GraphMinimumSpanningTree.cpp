@@ -111,10 +111,12 @@ void GraphMinimumSpanningTree::path_print(const unsigned int& to_node) const
             // if no more items on closed_set, retry once
             if ((node_distance.get_origin() == 0) && (node_distance.get_destiny() == 0) && (node_distance.get_distance() == 0))
             {
+                // already retried, exit
                 if (retry)
                     break;
                 else
                 {
+                    // restore set to closed_set because maybe we have already (wrongly) discarded the node we need to get to
                     #ifdef DEBUG_ITER
                     cout << "[GraphMinimumSpanningTree] retry: " << retry << " current: " << current << endl;
                     #endif
@@ -128,34 +130,23 @@ void GraphMinimumSpanningTree::path_print(const unsigned int& to_node) const
             {
                 current = node_distance.get_origin();
                 path.push_back(node_distance);
+                // node distance origin is the initial node, so we can add it and finish already
                 if (current == node_fro)
                 {
                     path.push_back(node_fro);
                     break;
                 }
                 retry = false;
-                //cout << "Pom " << node_distance << endl;
-                //cin.get();
             }
         }
 
         // reverse loop over path to print it
-        for (auto i = 1; i < path.size(); i++)
-            cout << "(";
         for (auto it = path.rbegin(); it != path.rend(); it++)
         {
             if ((it+1) != (path.rend()))
-            {
-                if (it == path.rbegin())
-                    cout << (*it) << "->";
-                else
-                    cout << (*it) << ")->";
-            }
+                cout << (*it) << "->";
             else
-            {
                 cout << (*it);
-                cout << ")";
-            }
         }
         cout << "]" << endl;
     }
