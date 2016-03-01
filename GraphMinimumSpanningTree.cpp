@@ -2,12 +2,17 @@
 
 using namespace std;
 
+// constructor calls for GraphShortestPath constructor
+// class GraphMinimumSpanningTree just add one member function to the inherited class
 GraphMinimumSpanningTree::GraphMinimumSpanningTree(const Graph& graph, const unsigned int& node_fro):
     GraphShortestPath(graph, node_fro)
 { }
 
+GraphMinimumSpanningTree::~GraphMinimumSpanningTree()
+{
+}
 
-double GraphMinimumSpanningTree::jarnik_and_primm_mst()
+double GraphMinimumSpanningTree::jarnik_prim()
 {
     double local_distance = 0.0;
     GraphNodeDistance current(0, 0, 0);
@@ -39,7 +44,7 @@ double GraphMinimumSpanningTree::jarnik_and_primm_mst()
             break;
 
         // set visited
-        distance = current.get_distance();
+        distance += current.get_distance();
 
         // insert current node on closed set
         closed_set.push(current);
@@ -58,7 +63,7 @@ double GraphMinimumSpanningTree::jarnik_and_primm_mst()
             local_distance = graph.get_edge_value(current, i);
             if (local_distance > 0)
             {
-                GraphNodeDistance current_to_node(current, i, distance+local_distance);
+                GraphNodeDistance current_to_node(current, i, local_distance);
 
                 // check if there is a way from current -> i or i -> current_node on open set
                 // if there is, update distance and origin from current_node -> i
@@ -80,5 +85,5 @@ double GraphMinimumSpanningTree::jarnik_and_primm_mst()
         }
     }
 
-    return aa;
+    return distance;
 }

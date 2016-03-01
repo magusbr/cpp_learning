@@ -14,7 +14,7 @@ class GraphMinimumSpanningTree : public GraphShortestPath
         GraphMinimumSpanningTree(const Graph& graph, const unsigned int& node_fro);
         virtual ~GraphMinimumSpanningTree();
 
-        double jarnik_and_primm_mst();
+        double jarnik_prim();
 
     protected:
 
