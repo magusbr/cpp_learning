@@ -5,7 +5,7 @@ using namespace std;
 // constructor calls for GraphShortestPath constructor
 // class GraphMinimumSpanningTree just add one member function to the inherited class
 GraphMinimumSpanningTree::GraphMinimumSpanningTree(const Graph& graph, const unsigned int& node_fro):
-    GraphShortestPath(graph, node_fro)
+    GraphShortestPath(graph, node_fro), mst_distance(-1)
 { }
 
 GraphMinimumSpanningTree::~GraphMinimumSpanningTree()
@@ -85,7 +85,7 @@ double GraphMinimumSpanningTree::jarnik_prim()
         }
     }
 
-    return distance;
+    return (mst_distance = distance);
 }
 
 void GraphMinimumSpanningTree::path_print(const unsigned int& to_node) const
@@ -156,3 +156,20 @@ void GraphMinimumSpanningTree::path_print(const unsigned int& to_node) const
     }
 }
 
+
+double GraphMinimumSpanningTree::path_size() const
+{
+    return mst_distance;
+}
+
+void GraphMinimumSpanningTree::path_size_print() const
+{
+    if (mst_distance > 0.0)
+    {
+        cout << "Minimum Spanning Tree from " << node_fro << " is: " << mst_distance << endl;
+    }
+    else
+    {
+        cout << "Minimum Spanning Tree from " << node_fro << " could not be found." << endl;
+    }
+}

@@ -257,7 +257,7 @@ void GraphShortestPath::path_size_print() const
 
 void GraphShortestPath::path_size_print(const unsigned int& to_node) const
 {
-    if (min_distance[to_node] < 0.0)
+    if (min_distance[to_node] > 0.0)
     {
         cout << "Distance from " << node_fro << " to " << to_node << " is: " << min_distance[to_node] << endl;
     }
