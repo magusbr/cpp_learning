@@ -32,7 +32,7 @@ double GraphMinimumSpanningTree::jarnik_prim()
     while (true)
     {
         #ifdef DEBUG
-        cout << "[Graph] ordered open: ";
+        cout << "[GraphMinimumSpanningTree] ordered open: ";
         open_set.print();
         #endif // DEBUG
 
@@ -51,7 +51,7 @@ double GraphMinimumSpanningTree::jarnik_prim()
 	min_distance[current] = distance;
 
         #ifdef DEBUG
-        cout << "[Graph] " << current.get_origin() << "->" << current << "(" << current.get_distance() << ")" << endl;
+        cout << "[GraphMinimumSpanningTree] " << current.get_origin() << "->" << current << "(" << current.get_distance() << ")" << endl;
         #endif // DEBUG
 
         // add adjacent nodes to open set
@@ -87,3 +87,81 @@ double GraphMinimumSpanningTree::jarnik_prim()
 
     return distance;
 }
+
+void GraphMinimumSpanningTree::path_print(const unsigned int& to_node) const
+{
+    vector<int> path;
+    GraphSortedNodeDistanceList set = closed_set;
+    GraphNodeDistance node_distance = GraphNodeDistance(0, 0, 0);
+    bool retry = false;
+    #ifdef DEBUG
+    cout << "[GraphMinimumSpanningTree] Closed set to reorder: ";
+    set.print();
+    #endif
+    // print only if min distance was actually found
+    if (min_distance[to_node] != -1.0)
+    {
+        cout << node_fro << " to " << to_node << " [";
+        unsigned int current = to_node;
+
+        // loop over closed set getting origin from current node, starting from destination node until source node
+        while (true)
+        {
+            node_distance = set.bottom();
+            // if no more items on closed_set, retry once
+            if ((node_distance.get_origin() == 0) && (node_distance.get_destiny() == 0) && (node_distance.get_distance() == 0))
+            {
+                if (retry)
+                    break;
+                else
+                {
+                    #ifdef DEBUG_ITER
+                    cout << "[GraphMinimumSpanningTree] retry: " << retry << " current: " << current << endl;
+                    #endif
+                    retry = true;
+                    set = closed_set;
+                }
+            }
+
+            // if found origin node, get next origin and add current node to path
+            if (node_distance == current)
+            {
+                current = node_distance.get_origin();
+                path.push_back(node_distance);
+                if (current == node_fro)
+                {
+                    path.push_back(node_fro);
+                    break;
+                }
+                retry = false;
+                //cout << "Pom " << node_distance << endl;
+                //cin.get();
+            }
+        }
+
+        // reverse loop over path to print it
+        for (auto i = 1; i < path.size(); i++)
+            cout << "(";
+        for (auto it = path.rbegin(); it != path.rend(); it++)
+        {
+            if ((it+1) != (path.rend()))
+            {
+                if (it == path.rbegin())
+                    cout << (*it) << "->";
+                else
+                    cout << (*it) << ")->";
+            }
+            else
+            {
+                cout << (*it);
+                cout << ")";
+            }
+        }
+        cout << "]" << endl;
+    }
+    else
+    {
+        cout << node_fro << " to " << to_node << " could not be found." << endl;
+    }
+}
+

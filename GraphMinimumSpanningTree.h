@@ -15,6 +15,8 @@ class GraphMinimumSpanningTree : public GraphShortestPath
         virtual ~GraphMinimumSpanningTree();
 
         double jarnik_prim();
+        // override inherited path_print function
+        void path_print(const unsigned int&) const;
 
     protected:
 

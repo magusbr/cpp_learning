@@ -49,7 +49,7 @@ double GraphShortestPath::dijkstra()
     while (true)
     {
         #ifdef DEBUG
-        cout << "[Graph] ordered open: ";
+        cout << "[GraphShortestPath] ordered open: ";
         open_set.print();
         #endif // DEBUG
 
@@ -67,7 +67,7 @@ double GraphShortestPath::dijkstra()
         closed_set.push(current);
 
         #ifdef DEBUG
-        cout << "[Graph] " << current.get_origin() << "->" << current << "(" << current.get_distance() << ")" << endl;
+        cout << "[GraphShortestPath] " << current.get_origin() << "->" << current << "(" << current.get_distance() << ")" << endl;
         #endif // DEBUG
 
         // did we get to destination? then stop
@@ -129,7 +129,7 @@ void GraphShortestPath::dijkstra_all()
     while (true)
     {
         #ifdef DEBUG
-        cout << "[Graph] ordered open: ";
+        cout << "[GraphShortestPath] ordered open: ";
         open_set.print();
         #endif // DEBUG
 
@@ -148,7 +148,7 @@ void GraphShortestPath::dijkstra_all()
 	min_distance[current] = distance;
 
         #ifdef DEBUG
-        cout << "[Graph] " << current.get_origin() << "->" << current << "(" << current.get_distance() << ")" << endl;
+        cout << "[GraphShortestPath] " << current.get_origin() << "->" << current << "(" << current.get_distance() << ")" << endl;
         #endif // DEBUG
 
         // add adjacent nodes to open set
@@ -189,6 +189,10 @@ void GraphShortestPath::path_print(const unsigned int& to_node) const
     vector<int> path;
     GraphSortedNodeDistanceList set = closed_set;
     GraphNodeDistance node_distance = GraphNodeDistance(0, 0, 0);
+    #ifdef DEBUG
+    cout << "[GraphShortestPath] Closed set to reorder: ";
+    set.print();
+    #endif
     // print only if min distance was actually found
     if (min_distance[to_node] != -1.0)
     {
