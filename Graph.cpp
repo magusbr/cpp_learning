@@ -38,20 +38,33 @@ Graph::Graph(const unsigned int& num_nodes, const double& edge_density, const do
 
 Graph::Graph(string graph_file_name)
 {
+    int num_nodes, src_node, dst_node, dist;
+
     // graph_file from file name in parameter
     ifstream graph_file(graph_file_name.c_str());
-    // iterator starting on file beggining
-    istream_iterator<string> start(graph_file), end;
 
-    // fill the vector from start to end of the file
-    vector<string> graph_data(start, end);
+    // read first line indicating number of nodes
+    graph_file >> num_nodes;
 
-    //#ifdef DEBUG
-    for(vector<string>::iterator it = graph_data.begin(); it != graph_data.end(); it++)
+    #ifdef DEBUG
+    cout << num_nodes << "\n";
+    #endif
+
+    add_node(num_nodes);
+
+    // while not end-of-file, get origin node, destination node and distance
+    while(graph_file)
     {
-        cout << (*it) << endl;
+        graph_file >> src_node >> dst_node >> dist;
+
+        #ifdef DEBUG
+        cout << src_node << "->" << dst_node << "=" << dist << "\n";
+        #endif
+
+        add_edge(src_node, dst_node, dist);
     }
-    //#endif
+
+    graph_file.close();
 }
 
 Graph::~Graph()
@@ -176,6 +189,21 @@ unsigned int Graph::add_node()
     return 0;
 }
 
+unsigned int Graph::add_node(const unsigned int& num_nodes)
+{
+    this->num_nodes = num_nodes;
+
+    // resize vector to the new number of rows
+    dist_matrix.resize(num_nodes);
+
+    // initialize each row with zero values
+    for (int i = 0; i < num_nodes; i++)
+        dist_matrix[i].assign(num_nodes, 0.0);
+
+    return 0;
+}
+
+
 bool Graph::rem_node(const unsigned int& node)
 {
     if (node >= dist_matrix.size())
@@ -268,7 +296,7 @@ void Graph::print() const
     {
         for (vector<double>::const_iterator col_it = (*line_it).begin(); col_it != (*line_it).end(); col_it++)
         {
-            cout << *col_it << " ";
+            cout << setw(5) << *col_it << " ";
         }
         cout << endl;
     }

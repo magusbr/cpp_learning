@@ -48,6 +48,7 @@ class Graph
         double prob(); // double random from 0.0 to 1.0
         double prob_range(const double& min_distance, const double& max_distance); // int range from min_distance to max_distance
         void randomize(const double& edge_density, const double& min_distance, const double& max_distance); // generate graph with size num_nodes with random edges with size [min_distance, max_distance]
+        unsigned int add_node(const unsigned int& num_nodes); // add nodes to graph - used only by constructor
 };
 
 #endif // GRAPH_H

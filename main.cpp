@@ -64,6 +64,16 @@ int main(int argc, char** argv)
 
 
     Graph g2("mst_data");
+    g2.print();
+    GraphMinimumSpanningTree gmst2(g2, 0);
+    gmst2.jarnik_prim();
+    gmst2.path_size_print();
+
+    for (unsigned int i = 1; i < g2.get_num_nodes(); i++)
+    {
+        gmst2.path_print(i);
+    }
+
 
     return 0;
 }
