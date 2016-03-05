@@ -19,7 +19,7 @@
 	"GraphShortestPath.h"
 	"GraphSortedNodeDistanceList.h"
 
-1457192491 source:c:\users\gustavo\graph\cpp_learning\graph.cpp
+1457196663 source:c:\users\gustavo\graph\cpp_learning\graph.cpp
 	"Graph.h"
 	<cstdio>
 	<iostream>
@@ -38,7 +38,7 @@
 	<vector>
 	<string>
 
-1457192491 source:c:\users\gustavo\graph\cpp_learning\main.cpp
+1457194125 source:c:\users\gustavo\graph\cpp_learning\main.cpp
 	<iostream>
 	"Graph.h"
 	"homework1.h"
@@ -156,4 +156,7 @@
 	"GraphShortestPath.h"
 	<vector>
 	<iostream>
+
+1457192491 source:c:\users\gustavo\graph\cpp_learning\graphminimumspanningtree.cpp
+	"GraphMinimumSpanningTree.h"
 

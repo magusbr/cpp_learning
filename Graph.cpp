@@ -38,7 +38,8 @@ Graph::Graph(const unsigned int& num_nodes, const double& edge_density, const do
 
 Graph::Graph(string graph_file_name)
 {
-    int num_nodes, src_node, dst_node, dist;
+    int num_nodes = 0, src_node, dst_node;
+    double dist;
 
     // graph_file from file name in parameter
     ifstream graph_file(graph_file_name.c_str());
@@ -47,7 +48,7 @@ Graph::Graph(string graph_file_name)
     graph_file >> num_nodes;
 
     #ifdef DEBUG
-    cout << num_nodes << "\n";
+    cout << "[Graph] [File] number of nodes: " << num_nodes << "\n";
     #endif
 
     add_node(num_nodes);
@@ -58,7 +59,7 @@ Graph::Graph(string graph_file_name)
         graph_file >> src_node >> dst_node >> dist;
 
         #ifdef DEBUG
-        cout << src_node << "->" << dst_node << "=" << dist << "\n";
+        cout << "[Graph] [File] " << src_node << "->" << dst_node << "=" << dist << "\n";
         #endif
 
         add_edge(src_node, dst_node, dist);
@@ -197,7 +198,7 @@ unsigned int Graph::add_node(const unsigned int& num_nodes)
     dist_matrix.resize(num_nodes);
 
     // initialize each row with zero values
-    for (int i = 0; i < num_nodes; i++)
+    for (unsigned int i = 0; i < num_nodes; i++)
         dist_matrix[i].assign(num_nodes, 0.0);
 
     return 0;
@@ -250,7 +251,7 @@ bool Graph::add_edge(const unsigned int& x, const unsigned int& y, const double&
     dist_matrix[y][x] = distance;
 
     #ifdef DEBUG
-    cout << "[Graph] added edge from " << x << " to " << y << endl;
+    cout << "[Graph] added edge from " << x << " to " << y << " = " << distance << endl;
     #endif // DEBUG
 
     return true;
@@ -292,6 +293,7 @@ void Graph::print() const
 {
     cout.setf(ios::fixed, ios::floatfield);
     cout.precision(2);
+
     for (vector<vector<double>>::const_iterator line_it = dist_matrix.begin(); line_it != dist_matrix.end(); line_it++)
     {
         for (vector<double>::const_iterator col_it = (*line_it).begin(); col_it != (*line_it).end(); col_it++)

@@ -48,7 +48,7 @@ double GraphMinimumSpanningTree::jarnik_prim()
 
         // insert current node on closed set
         closed_set.push(current);
-	min_distance[current] = distance;
+        min_distance[current] = distance;
 
         #ifdef DEBUG
         cout << "[GraphMinimumSpanningTree] " << current.get_origin() << "->" << current << "(" << current.get_distance() << ")" << endl;
