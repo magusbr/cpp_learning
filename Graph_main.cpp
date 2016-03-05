@@ -117,7 +117,7 @@ namespace graph_teste
         g.print();
         GraphShortestPath gsp = GraphShortestPath(g, 0, 8);
         gsp.dijkstra();
-        gsp.path_print();
+        //gsp.path_print();
         gsp.path_size_print();
 
         homework1::main();

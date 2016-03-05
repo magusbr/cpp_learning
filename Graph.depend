@@ -19,7 +19,7 @@
 	"GraphShortestPath.h"
 	"GraphSortedNodeDistanceList.h"
 
-1456196895 source:c:\users\gustavo\graph\cpp_learning\graph.cpp
+1457192491 source:c:\users\gustavo\graph\cpp_learning\graph.cpp
 	"Graph.h"
 	<cstdio>
 	<iostream>
@@ -29,17 +29,23 @@
 	<assert.h>
 	<algorithm>
 	<time.h>
+	<iomanip>
+	<string>
+	<fstream>
+	<iterator>
 
-1456196864 c:\users\gustavo\graph\cpp_learning\graph.h
+1457192491 c:\users\gustavo\graph\cpp_learning\graph.h
 	<vector>
+	<string>
 
-1456276932 source:c:\users\gustavo\graph\cpp_learning\main.cpp
+1457192491 source:c:\users\gustavo\graph\cpp_learning\main.cpp
 	<iostream>
 	"Graph.h"
 	"homework1.h"
 	"GraphShortestPath.h"
 	"GraphSortedNodeDistanceList.h"
 	"GraphMonteCarlo.h"
+	"GraphMinimumSpanningTree.h"
 
 1455626081 source:c:\users\gustavo.teixeira\desktop\graph\funcs.cxx
 	<iostream>
@@ -75,14 +81,15 @@
 1455883927 c:\users\gustavo\graph\cpp_learning\shortestpath.h
 	"Graph.h"
 
-1456277202 source:c:\users\gustavo\graph\cpp_learning\graphshortestpath.cpp
+1457192491 source:c:\users\gustavo\graph\cpp_learning\graphshortestpath.cpp
 	"GraphShortestPath.h"
 	<vector>
 	<assert.h>
 	<algorithm>
 	<iostream>
+	<iomanip>
 
-1456196805 c:\users\gustavo\graph\cpp_learning\graphshortestpath.h
+1457192491 c:\users\gustavo\graph\cpp_learning\graphshortestpath.h
 	"Graph.h"
 	"GraphSortedNodeDistanceList.h"
 
@@ -127,17 +134,24 @@
 	<algorithm>
 	<iostream>
 
-1456189043 source:c:\users\gustavo\graph\cpp_learning\graph_main.cpp
+1457192595 source:c:\users\gustavo\graph\cpp_learning\graph_main.cpp
 	<iostream>
 	"Graph.h"
 	"homework1.h"
 	"GraphShortestPath.h"
 	"GraphSortedNodeDistanceList.h"
 
-1456276932 source:c:\users\gustavo\graph\cpp_learning\graphmontecarlo.cpp
+1457192491 source:c:\users\gustavo\graph\cpp_learning\graphmontecarlo.cpp
 	"GraphMonteCarlo.h"
+	<iomanip>
 
 1456197114 c:\users\gustavo\graph\cpp_learning\graphmontecarlo.h
+	"Graph.h"
+	"GraphShortestPath.h"
+	<vector>
+	<iostream>
+
+1457192491 c:\users\gustavo\graph\cpp_learning\graphminimumspanningtree.h
 	"Graph.h"
 	"GraphShortestPath.h"
 	<vector>

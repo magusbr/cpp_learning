@@ -37,6 +37,8 @@
 		</Compiler>
 		<Unit filename="Graph.cpp" />
 		<Unit filename="Graph.h" />
+		<Unit filename="GraphMinimumSpanningTree.cpp" />
+		<Unit filename="GraphMinimumSpanningTree.h" />
 		<Unit filename="GraphMonteCarlo.cpp" />
 		<Unit filename="GraphMonteCarlo.h" />
 		<Unit filename="GraphNodeDistance.cpp" />
