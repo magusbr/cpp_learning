@@ -9,12 +9,12 @@ CC=g++
 CFLAGS=-std=c++14 -I.
 OBJ = Graph.o GraphNodeDistance.o GraphSortedNodeDistanceList.o GraphShortestPath.o GraphMonteCarlo.o GraphMinimumSpanningTree.o main.o
 
-all: monte_carlo clean
+all: graph clean
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-monte_carlo: $(OBJ)
+graph: $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
